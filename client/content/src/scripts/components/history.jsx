@@ -12,6 +12,8 @@ import * as d3 from 'd3';
 export default class History extends React.Component {
   componentDidMount() {
     console.log('inside history.jsx componentDidMount');
+    
+    // getToken();
 
     const h = 700;
     const maxH = 500;

@@ -5,7 +5,7 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import History from './history';
 import Container from './nav_container';
 // import fetchVisData from '../../../../event/src/actions/fetch_vis_data';
-import getToken from '../../../../event/src/auth/auth';
+// import getToken from '../../../../event/src/auth/auth';
 
 // @connect((store) => {
 //   return {
@@ -19,13 +19,22 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(fetchVisData());
+    // this.props.dispatch(fetchVisData());
     console.log('inside app.jsx componentDidMount');
+    // getToken();
+    document.addEventListener('click', () => {
+      this.props.dispatch({
+        type: 'ADD_COUNT'
+      });
+    });
   }
 
   render() {
     return (
-      <History visualData={this.props.visData} /> 
+      <div>
+        count: {this.props.count}
+      </div>
+
     );
   }
 }
@@ -33,6 +42,7 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
   return {
     visData: state.visData,
+    count: state.count,
   };
 };
 

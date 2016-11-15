@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-  entry: path.join(__dirname, './src/scripts/index.jsx'),
+  entry: ['./src/scripts/index.jsx'],
   output: {
     path: path.join(__dirname, '../public'),
     filename: 'content.js'
@@ -32,6 +32,7 @@ module.exports = {
       }]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx'],
+    modulesDirectories: ['node_modules']
   }
 }
