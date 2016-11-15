@@ -1,4 +1,5 @@
 import axios from 'axios';
+import getToken from '../auth/auth';
 
 function loadVisDataUponResponse (data) {
   return {
@@ -9,8 +10,8 @@ function loadVisDataUponResponse (data) {
 
 export default function fetchVisData (id) {
   console.log('fetch vis data', id);
-  
   return function (dispatch) {
+     
     const microsecondsPerDay = 1000 * 60 * 60 * 24;
     const oneDayAgo = (new Date).getTime() - microsecondsPerDay;
 

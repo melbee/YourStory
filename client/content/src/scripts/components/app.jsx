@@ -4,7 +4,7 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 
 import History from './history';
 import Container from './nav_container';
-// import getToken from '../../../../event/src/auth/auth';
+import fetchVisData from '../../../../event/src/actions/fetch_vis_data';
 
 // @connect((store) => {
 //   return {
@@ -13,8 +13,13 @@ import Container from './nav_container';
 // })
 
 class App extends React.Component {
+  componentWillMount() {
+      this.props.dispatch(fetchVisData());
+  }
+
   constructor(props) {
     super(props);
+    console.log(props);
   }
 
   render() {
