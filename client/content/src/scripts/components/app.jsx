@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import History from './history';
 import Container from './nav_container';
-import getToken from '../auth/auth';
+import getToken from '../../../../event/src/auth/auth';
 
 @connect((store) => {
   return {
@@ -12,7 +12,6 @@ import getToken from '../auth/auth';
 })
 
 export default class App extends React.Component {
-
   componentWillMount() {
     getToken();
   }

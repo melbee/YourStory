@@ -3,6 +3,8 @@ import fetchVisData from '../actions/fetch_vis_data';
 import store from '../store';
 
 export default function getToken() {
+  console.log("inside get token func");
+  let counter = 0;
   chrome.identity.getAuthToken({
     interactive: true,
   }, (token) => {
@@ -23,7 +25,10 @@ export default function getToken() {
         .then((response) => {
           var chromeID = JSON.parse(response.config.data).chromeID;
           console.log('CHROME ID', chromeID);
+          
           setInterval(() => {
+            counter++;
+            console.log("counter: ", counter);
             store.dispatch(fetchVisData(response));
           }, 500);
         })
@@ -34,4 +39,4 @@ export default function getToken() {
     x.send();
   });
 }
-getToken();
+// getToken();
