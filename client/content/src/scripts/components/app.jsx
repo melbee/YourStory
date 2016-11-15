@@ -4,7 +4,8 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 
 import History from './history';
 import Container from './nav_container';
-import fetchVisData from '../../../../event/src/actions/fetch_vis_data';
+// import fetchVisData from '../../../../event/src/actions/fetch_vis_data';
+import getToken from '../../../../event/src/auth/auth';
 
 // @connect((store) => {
 //   return {
@@ -13,13 +14,13 @@ import fetchVisData from '../../../../event/src/actions/fetch_vis_data';
 // })
 
 class App extends React.Component {
-  componentWillMount() {
-      this.props.dispatch(fetchVisData());
-  }
-
   constructor(props) {
     super(props);
-    console.log(props);
+  }
+
+  componentDidMount() {
+    this.props.dispatch(fetchVisData());
+    console.log('inside app.jsx componentDidMount');
   }
 
   render() {
