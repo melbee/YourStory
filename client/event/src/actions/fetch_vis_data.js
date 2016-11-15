@@ -9,6 +9,7 @@ function loadVisDataUponResponse (data) {
 
 export default function fetchVisData (id) {
   console.log('fetch vis data', id);
+  
   return function (dispatch) {
     const microsecondsPerDay = 1000 * 60 * 60 * 24;
     const oneDayAgo = (new Date).getTime() - microsecondsPerDay;
@@ -19,7 +20,7 @@ export default function fetchVisData (id) {
     }, (array) => {
       axios({
         method: 'post',
-        url: process.env.HOST + '/api/history',
+        url: 'http://localhost:3000/api/history',
         data: { history: array, chromeID: id },
       }).then((response) => {   
         dispatch(loadVisDataUponResponse(response));

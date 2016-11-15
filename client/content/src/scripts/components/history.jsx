@@ -1,16 +1,18 @@
 import React from 'react';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import * as d3 from 'd3';
+// import getToken from '../../../../event/src/auth/auth';
 
-@connect((store) => {
-  return {
-    visData: store.visData,
-  };
-})
+// @connect((store) => {
+//   return {
+//     visData: store.visData,
+//   };
+// })
 
 export default class History extends React.Component {
-
   componentDidMount() {
+    console.log("inside history component");
+    // getToken();
     const h = 700;
     const maxH = 500;
     const minH = 200;
@@ -31,9 +33,12 @@ export default class History extends React.Component {
     .attr('x', w / 2)
     .attr('y', h / 2);
 
-    setInterval(() => {
+    // setInterval(() => {
+      // console.log('this.props.visualData: ', this.props.visualData);
+      // console.log('this.props.visData: ', this.props.visData);
+      // console.log('this.props: ', this.props);
       const circle = svg.selectAll('circle')
-      .data(this.props.visData)
+      .data(this.props.visualData)
       .enter()
       .append('svg:circle')
       .attr('r', (d) => {
@@ -55,7 +60,7 @@ export default class History extends React.Component {
       .text((d) => {
         return 'WEBSITE: ' + d.domain + ' | VISITS: ' + d.visits;
       });
-    }, 500);
+    // }, 500);
   }
 
   render() {

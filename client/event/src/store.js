@@ -1,5 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
+import { wrapStore } from 'react-chrome-redux';
+
 import historyReducer from './reducers';
 
 const createStoreWithMiddleware = applyMiddleware(
@@ -8,4 +10,9 @@ const createStoreWithMiddleware = applyMiddleware(
 
 const store = createStoreWithMiddleware(historyReducer);
 
-export default store;
+wrapStore(store, {
+  portName: 'YourStory',
+});
+
+
+// export default store;

@@ -4,11 +4,20 @@
   "description": "Visualize Your Browsing History",
   "version": "1.0.1", // TODO: need to confirm this is the correct version
   "permissions": [
-    "history", "tabs", "http://*/",  "identity", "storage"
+    "history", "tabs", "http://*/",  "identity", "storage", "background"
   ],
   "background": {
-    "scripts": ["./bundle.js"]
+    "scripts": ["event.js"],
+    "persistent": true
   },
+  "content_scripts": [
+    {
+      // "matches": ["*://*.google.com/_/chrome/newtab*"],
+      "matches": ["<all_urls>"],
+      "css": [],
+      "js": ["content.js"]
+    }
+  ],
   "chrome_url_overrides" : {
     "newtab": "./index.html"
   },
