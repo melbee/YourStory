@@ -30,9 +30,10 @@ export default function fetchToken() {
         }).then((response) => {
           dispatch(loadTokenOnResponse(response));
         })
-
-
-    return null;
+      }
+    }
+    
+    return null
   }
 }
 
