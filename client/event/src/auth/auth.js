@@ -45,6 +45,7 @@ import store from '../store';
 
 export default function getToken() {
   console.log("inside get token func");
+
     
   chrome.identity.getAuthToken({
     interactive: true,

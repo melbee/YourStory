@@ -10,9 +10,10 @@ import * as d3 from 'd3';
 // })
 
 export default class History extends React.Component {
+
   componentDidMount() {
-    console.log('inside history.jsx componentDidMount');
-    
+    console.log('inside history.jsx componentDidMount', this.props);
+
     // getToken();
 
     const h = 700;
@@ -67,7 +68,10 @@ export default class History extends React.Component {
 
   render() {
     return (
-      <div ref={'hello'} style={{ margin: 'auto' }} />
+      <div>
+        <div> {this.props.visualData.count} </div>
+        <div ref={'hello'} style={{ margin: 'auto' }} />
+      </div>
     );
   }
 }

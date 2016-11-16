@@ -10,15 +10,6 @@ function loadVisDataUponResponse (data) {
 
 export default function fetchVisData (id) {
   console.log('fetch vis data', id);
-
-  // count = 0;
-  //  let counter = 0;
-  //     setInterval(()=> {
-  //     counter++;
-  //     console.log(counter);
-  //   }, 3000);
-
-
   return function (dispatch) {
 secondsPerDay = 1000 * 60 * 60 * 24;
     const oneDayAgo = (new Date).getTime() - microsecondsPerDay;

@@ -6,12 +6,8 @@ import historyReducer from './history';
 
 export default combineReducers({
   count,
-  history,
+  history
 });
-
-
-
-
 
 
 // export default combineReducers({
