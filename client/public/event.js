@@ -77,13 +77,6 @@
 	  portName: 'YourStory'
 	});
 
-	// counter = 0;
-	//  let counter = 0;
-	//     setInterval(()=> {
-	//     counter++;
-	//     console.log(counter);
-	//   }, 1000);
-
 	// export default store;
 
 /***/ },
@@ -3067,7 +3060,7 @@
 
 	exports.default = (0, _redux.combineReducers)({
 	  count: _count2.default,
-	  history: history
+	  visData: _history2.default
 	});
 
 	// export default combineReducers({
@@ -7070,7 +7063,7 @@
 /* 105 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -7081,6 +7074,7 @@
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
 	  var action = arguments[1];
 
+	  console.log("inside count.js");
 	  switch (action.type) {
 	    case 'ADD_COUNT':
 	      return state + (action.payload || 1);

@@ -1,20 +1,19 @@
 import React from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import * as d3 from 'd3';
-// import getToken from '../../../../event/src/auth/auth';
 
-// @connect((store) => {
-//   return {
-//     visData: store.visData,
-//   };
-// })
+@connect((store) => {
+  console.log("history store state?", store.visData);
+  return {
+    visData: store.visData,
+  };
+})
 
+//works but need to pass state correctly
 export default class History extends React.Component {
 
   componentDidMount() {
-    console.log('inside history.jsx componentDidMount', this.props);
-
-    // getToken();
+    console.log('inside history.jsx componentDidMount');
 
     const h = 700;
     const maxH = 500;
@@ -38,10 +37,10 @@ export default class History extends React.Component {
 
     // setInterval(() => {
       // console.log('this.props.visualData: ', this.props.visualData);
-      // console.log('this.props.visData: ', this.props.visData);
-      // console.log('this.props: ', this.props);
+      // console.log('this.props from history.jsx: ', this.props);
+      // console.log("this.props.visualData: ", this.props.visualData)
       const circle = svg.selectAll('circle')
-      .data(this.props.visualData)
+      .data([{domain: 'google.com', visits: 50 }])
       .enter()
       .append('svg:circle')
       .attr('r', (d) => {
@@ -68,8 +67,7 @@ export default class History extends React.Component {
 
   render() {
     return (
-      <div>
-        <div> {this.props.visualData.count} </div>
+      <div>       
         <div ref={'hello'} style={{ margin: 'auto' }} />
       </div>
     );

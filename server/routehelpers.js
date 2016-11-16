@@ -17,6 +17,7 @@ db.authenticate().then(() => {
 // database routes / queries
 module.exports = {
   postHistory: (req, res) => {
+    // console.log("inside server: post request for fetch vis data");
     const allData = req.body.history;
     const id = req.body.chromeID;
 

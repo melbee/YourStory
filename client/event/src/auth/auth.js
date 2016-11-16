@@ -2,6 +2,20 @@ import axios from 'axios';
 import fetchVisData from '../actions/fetch_vis_data';
 import store from '../store';
 
+// const initialState = 1;
+
+// export default (state = initialState, action) => {
+//   switch (action.type) {
+//     case 'FETCH_TOKEN':
+//       return action.payload;
+//     default:
+//       return state;
+//   }
+// };
+
+
+
+
 // function loadTokenOnResponse (data) {
 //   return {
 //     type: 'FETCH_TOKEN',
@@ -43,11 +57,18 @@ import store from '../store';
 //   };
 // }
 
+
+
 export default function getToken() {
   console.log("inside get token func");
+// chrome.identity.getAuthToken({
+//     interactive: true,
+//   }, (token) => {
 
-    
-  chrome.identity.getAuthToken({
+//   }
+
+const test = () => {
+chrome.identity.getAuthToken({
     interactive: true,
   }, (token) => {
     if (chrome.runtime.lastError) {
@@ -80,5 +101,6 @@ export default function getToken() {
     };
     x.send();
   });
+  }
 }
 

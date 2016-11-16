@@ -15,11 +15,4 @@ wrapStore(store, {
   portName: 'YourStory',
 });
 
-  // counter = 0;
-  //  let counter = 0;
-  //     setInterval(()=> {
-  //     counter++;
-  //     console.log(counter);
-  //   }, 1000);
-
 // export default store;

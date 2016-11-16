@@ -2,11 +2,11 @@ import React from 'react';
 import {combineReducers} from 'redux';
 
 import count from './count';
-import historyReducer from './history';
+import visData from './history';
 
 export default combineReducers({
   count,
-  history
+  visData,
 });
 
 
