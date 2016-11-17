@@ -7,7 +7,7 @@ console.log("inside history.js");
       console.log('action payload', action.payload.data);
       return { ...state, visData: action.payload.data };
       break;
-    }
+  }
   }
 
   return state;

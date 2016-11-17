@@ -71,10 +71,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	// import store from '../../../event/src/store';
-
 	console.log("env", process.env.HOST);
-
 	var app = document.getElementById('app');
 
 	//if this anchor does not work, try creating element in body
@@ -84,11 +81,14 @@
 	  portName: 'YourStory'
 	});
 
-	_reactDom2.default.render(_react2.default.createElement(
-	  _reactRedux.Provider,
-	  { store: proxyStore },
-	  _react2.default.createElement(_app2.default, null)
-	), app);
+	var unsubscribe = proxyStore.subscribe(function () {
+	  unsubscribe(); // make sure to only fire once
+	  _reactDom2.default.render(_react2.default.createElement(
+	    _reactRedux.Provider,
+	    { store: proxyStore },
+	    _react2.default.createElement(_app2.default, null)
+	  ), app);
+	});
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
@@ -24929,13 +24929,19 @@
 
 	var _reactRouter = __webpack_require__(251);
 
-	var _history = __webpack_require__(304);
+	var _d = __webpack_require__(304);
+
+	var d3 = _interopRequireWildcard(_d);
+
+	var _history = __webpack_require__(305);
 
 	var _history2 = _interopRequireDefault(_history);
 
 	var _nav_container = __webpack_require__(306);
 
 	var _nav_container2 = _interopRequireDefault(_nav_container);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24948,29 +24954,43 @@
 	var App = function (_React$Component) {
 	  _inherits(App, _React$Component);
 
-	  function App(props) {
+	  function App() {
 	    _classCallCheck(this, App);
 
-	    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+	    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
 	  }
 
 	  _createClass(App, [{
 	    key: 'componentWillMount',
+
+	    // constructor (props) {
+	    //   super(props);
+	    // }
+
 	    value: function componentWillMount() {
 	      var _this2 = this;
 
-	      console.log('inside app.jsx componentDidMount', this.props);
-	      document.addEventListener('click', function () {
-	        _this2.props.dispatch({
-	          type: 'ADD_COUNT'
+	      if (this.props.chromeID === null) {
+	        this.props.dispatch({
+	          type: 'user-clicked-alias'
 	        });
-	      });
-	      // document.addEventListener('click', () => {
-	      this.props.dispatch({
-	        type: 'FETCH_VIS_DATA',
-	        payload: [{ domain: 'yahoo.com', visits: 50 }]
-	      });
-	      // })
+	        this.props.dispatch({
+	          type: 'FETCH_TOKEN',
+	          payload: 'got token'
+	        });
+	      } else {
+	        document.addEventListener('click', function () {
+	          _this2.props.dispatch({
+	            type: 'ADD_COUNT'
+	          });
+	        });
+	        // this.props.dispatch({
+	        //   type: 'FETCH_VIS_DATA_STORE',
+	        //   // payload: [{ domain: 'espn.com', visits: 50 }, { domain: 'wsj.com', visits: 250 }, { domain: 'yahoo.com', visits: 150 }],
+	        // }).then((data) => {
+	        //   console.log(data);
+	        // })
+	      }
 	    }
 	  }, {
 	    key: 'render',
@@ -24985,7 +25005,7 @@
 	          this.props.count,
 	          ' '
 	        ),
-	        _react2.default.createElement(_history2.default, { visualData: this.props })
+	        _react2.default.createElement(_history2.default, null)
 	      );
 	    }
 	  }]);
@@ -24994,10 +25014,11 @@
 	}(_react2.default.Component);
 
 	var mapStateToProps = function mapStateToProps(state) {
-	  console.log("state from app.jsx", state);
+	  console.log("App.js state: ", state);
 	  return {
 	    visData: state.visData,
-	    count: state.count
+	    count: state.count,
+	    chromeID: state.chromeID
 	  };
 	};
 
@@ -29796,106 +29817,6 @@
 
 /***/ },
 /* 304 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = undefined;
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _dec, _class;
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRedux = __webpack_require__(173);
-
-	var _d = __webpack_require__(305);
-
-	var d3 = _interopRequireWildcard(_d);
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	//works but need to pass state correctly
-	var History = (_dec = (0, _reactRedux.connect)(function (store) {
-	  console.log("history store state?", store.visData);
-	  return {
-	    visData: store.visData
-	  };
-	}), _dec(_class = function (_React$Component) {
-	  _inherits(History, _React$Component);
-
-	  function History() {
-	    _classCallCheck(this, History);
-
-	    return _possibleConstructorReturn(this, (History.__proto__ || Object.getPrototypeOf(History)).apply(this, arguments));
-	  }
-
-	  _createClass(History, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      console.log('inside history.jsx componentDidMount');
-
-	      var h = 700;
-	      var maxH = 500;
-	      var minH = 200;
-	      var w = 1280;
-	      var maxW = 1000;
-	      var minW = 200;
-	      var color = d3.scaleLinear().domain([0, 5]).range(["steelblue", "pink"]);
-	      var rscale = d3.scaleLinear().domain([0, 500]).range([0, 325]);
-
-	      var svg = d3.select(this.refs.hello).append('svg').attr('height', h).attr('width', w).attr('x', w / 2).attr('y', h / 2);
-
-	      // setInterval(() => {
-	      // console.log('this.props.visualData: ', this.props.visualData);
-	      // console.log('this.props from history.jsx: ', this.props);
-	      // console.log("this.props.visualData: ", this.props.visualData)
-	      var circle = svg.selectAll('circle').data([{ domain: 'google.com', visits: 50 }]).enter().append('svg:circle').attr('r', function (d) {
-	        return rscale(d.visits) / 2;
-	      }).attr('fill', function (d, i) {
-	        return color(i);
-	      }).attr('cx', function () {
-	        return Math.floor(Math.random() * (maxW - minW)) + minW;
-	      }).attr('cy', function (d) {
-	        return Math.floor(Math.random() * (maxH - minH)) + minH;
-	      }).style('z-index', function (d) {
-	        return 100 - d.visits;
-	      }).append('svg:title').text(function (d) {
-	        return 'WEBSITE: ' + d.domain + ' | VISITS: ' + d.visits;
-	      });
-	      // }, 500);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement('div', { ref: 'hello', style: { margin: 'auto' } })
-	      );
-	    }
-	  }]);
-
-	  return History;
-	}(_react2.default.Component)) || _class);
-	exports.default = History;
-
-/***/ },
-/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// https://d3js.org Version 4.3.0. Copyright 2016 Mike Bostock.
@@ -46282,6 +46203,103 @@
 
 	})));
 
+
+/***/ },
+/* 305 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(173);
+
+	var _d = __webpack_require__(304);
+
+	var d3 = _interopRequireWildcard(_d);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var History = function (_React$Component) {
+	  _inherits(History, _React$Component);
+
+	  function History(props) {
+	    _classCallCheck(this, History);
+
+	    var _this = _possibleConstructorReturn(this, (History.__proto__ || Object.getPrototypeOf(History)).call(this, props));
+
+	    console.log("History.jsx constructor: ", _this.props);
+	    _this.state = { visData: _this.props.visData };
+	    return _this;
+	  }
+
+	  _createClass(History, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      console.log('History.jsx componentDidUpdate :', this.props.visData[0]);
+
+	      var h = 700;
+	      var maxH = 500;
+	      var minH = 200;
+	      var w = 1280;
+	      var maxW = 1000;
+	      var minW = 200;
+	      var color = d3.scaleLinear().domain([0, 5]).range(["steelblue", "pink"]);
+	      var rscale = d3.scaleLinear().domain([0, 500]).range([0, 325]);
+
+	      var svg = d3.select(this.refs.hello).append('svg').attr('height', h).attr('width', w).attr('x', w / 2).attr('y', h / 2);
+
+	      var circle = svg.selectAll('circle').data(this.props.visData).enter().append('svg:circle').attr('r', function (d) {
+	        return rscale(d.visits) / 2;
+	      }).attr('fill', function (d, i) {
+	        return color(i);
+	      }).attr('cx', function () {
+	        return Math.floor(Math.random() * (maxW - minW)) + minW;
+	      }).attr('cy', function (d) {
+	        return Math.floor(Math.random() * (maxH - minH)) + minH;
+	      }).style('z-index', function (d) {
+	        return 100 - d.visits;
+	      }).append('svg:title').text(function (d) {
+	        return 'WEBSITE: ' + d.domain + ' | VISITS: ' + d.visits;
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement('div', { ref: 'hello', style: { margin: 'auto' } })
+	      );
+	    }
+	  }]);
+
+	  return History;
+	}(_react2.default.Component);
+
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    visData: state.visData
+	  };
+	};
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(History);
 
 /***/ },
 /* 306 */

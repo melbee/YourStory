@@ -1,10 +1,9 @@
-const initialState = 0;
+const initialState = null;
 
 export default (state = initialState, action) => {
-console.log("inside count.js");
   switch (action.type) {
-    case 'ADD_COUNT':
-      return state + 1;
+    case 'FETCH_TOKEN':
+      return { ...state, chromeID: action.payload };
     default:
       return state;
   }

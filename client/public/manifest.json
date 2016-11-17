@@ -4,7 +4,7 @@
   "description": "Visualize Your Browsing History",
   "version": "1.0.1", // TODO: need to confirm this is the correct version
   "permissions": [
-    "history", "tabs", "http://*/",  "identity", "storage", "background"
+    "history", "tabs", "http://*/",  "identity", "storage", "background", "alarms"
   ],
   "background": {
     "scripts": ["event.js"],
