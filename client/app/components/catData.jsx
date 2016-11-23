@@ -195,14 +195,13 @@ export default class Categories extends React.Component {
         temp.exit()
           .remove();
       });
-
-
+      
         let newLabel = svg.append('text')
           .attr('text-anchor', 'middle')
           .attr('class', 'domain')
           .text("")
         newLabel.on('click', (() => {
-          console.log('clicked')
+          console.log('clicked');
         }));
   }
 
