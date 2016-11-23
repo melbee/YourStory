@@ -221,15 +221,16 @@ module.exports = {
   
   getUser: (req, res) => {
     console.log("inside get user");
-    req.session.chromeID = req.body.chromeID;
 
     User.findOne({ where: { chrome_id: req.session.chromeID } })
     .then((user) => {
-      console.log("user from getUser", user);
+      console.log("user from getUser", user.dataValues.username);
       if (user === null) {
         user = 'User';
-      }
-      res.status(201).json(user);
+        res.status(201).json(user.dataValues.username);
+      } else {
+        res.status(201).json(user.dataValues.username);
+      }      
     })
     .catch((err) => {
       console.log("error sending username", err);
