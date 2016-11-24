@@ -79,26 +79,31 @@ export default class History extends React.Component {
                 .style("left", w - 100 + 'px')
                 .style("textAlign", "center");
 
-          svg.selectAll("circle")
-            .call(function (circle) {
-              circle
-              .classed('hover', true)
-              .transition(1500)
-              .attr('r', (d, i) =>{
-                return radius(i);
-              })
-            })
-          }))
+                d3.selectAll('circle')
+                .sort(function (circle, next){
+                  if(circle.id !== next.id) {
+                    circle
+                    .classed('hover', true)
+                    .transition(1500)
+                    .attr('r', (d, i) =>{
+                      return radius(i * 2)
+                    })
+               }
+             })
+           }))
           .on("mouseout", () => {
             tooltip.style("visibility", "hidden");
             d3.selectAll('circle')
-            .call(function (circle) {
-              circle
-              .classed('hover', false)
-              .transition(1500)
-              .attr('r', (d, i) =>{
-                return radius(i)
-              });
+            .sort(function (circle, next){
+              if(circle.id !== next.id) {
+                circle
+                .classed('hover', false)
+                .transition(1500)
+                .attr('r', (d, i) =>{
+                  return radius(i)
+                });
+
+              }
             });
        })
       .transition()
