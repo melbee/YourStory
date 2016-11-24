@@ -80,31 +80,14 @@ export default class History extends React.Component {
                 .style("textAlign", "center");
 
                 d3.selectAll('circle')
-                .sort(function (circle, next){
-                  if(circle.id !== next.id) {
-                    circle
-                    .classed('hover', true)
-                    .transition(1500)
-                    .attr('r', (d, i) =>{
-                      return radius(i * 2)
-                    })
-               }
-             })
+                .classed('hover', true)
+
            }))
           .on("mouseout", () => {
             tooltip.style("visibility", "hidden");
             d3.selectAll('circle')
-            .sort(function (circle, next){
-              if(circle.id !== next.id) {
-                circle
                 .classed('hover', false)
-                .transition(1500)
-                .attr('r', (d, i) =>{
-                  return radius(i)
-                });
 
-              }
-            });
        })
       .transition()
       .duration(2000)
