@@ -1,8 +1,10 @@
+'use strict'
+
 const webpack = require('webpack')
 const path = require('path')
 
 module.exports = {
-  entry: path.join(__dirname, 'client/app/index.jsx'), 
+  entry: path.join(__dirname, 'client/app/index.jsx'),
   output: {
     path: path.join(__dirname, 'client/public'),
     filename: 'bundle.js'
@@ -30,36 +32,36 @@ module.exports = {
         plugins: ['transform-decorators-legacy']
       }
     },
-    { 
-      test: /\.css$/, 
-      loader: "style-loader!css-loader" 
+    {
+      test: /\.css$/,
+      loader: "style-loader!css-loader"
     },
     {
         test: /\.scss$/,
         loaders: ["style", "css", "sass"]
-    },    
-    { 
-      test: /\.png$/, 
-      loader: "url-loader?limit=100000" 
-    },
-    { 
-      test: /\.jpg$/, 
-      loader: "file-loader" 
     },
     {
-      test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/, 
+      test: /\.png$/,
+      loader: "url-loader?limit=100000"
+    },
+    {
+      test: /\.jpg$/,
+      loader: "file-loader"
+    },
+    {
+      test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
       loader: 'url?limit=10000&mimetype=application/font-woff'
     },
     {
-      test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, 
+      test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
       loader: 'url?limit=10000&mimetype=application/octet-stream'
     },
     {
-      test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, 
+      test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
       loader: 'file'
     },
     {
-      test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, 
+      test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
       loader: 'url?limit=10000&mimetype=image/svg+xml'
     }
       ]

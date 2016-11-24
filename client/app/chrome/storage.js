@@ -1,3 +1,5 @@
+'use strict'
+
 export const loadState = () => {
   console.log('storage', localStorage)
   try {
