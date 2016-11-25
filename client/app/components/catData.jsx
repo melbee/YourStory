@@ -145,15 +145,10 @@ export default class Categories extends React.Component {
           return d.count;
         }));
         const percent = Math.round(1000 * d.data.count / total) / 10;
-        // tooltipD3.select('.label').html(d.data.label);
-        // tooltipD3.select('.count').html(d.data.count);
-        // tooltipD3.select('.percent').html(percent + '%');
-        // tooltipD3.style('display', 'block');
         svg.select('.domain').text(d.data.label + ': ' + percent + '%');
       }));
 
-      path.on('mouseout', (() => {
-        // tooltip.style('display', 'none');
+      path.on('mouseout', (() => {                              
         svg.selectAll('text').text("");
       }));
 
@@ -185,17 +180,16 @@ export default class Categories extends React.Component {
             return color(d.data.label);
           })).transition()
           .duration(2000)
-          .attrTween('d', function(d) {
-            var interpolate = d3.interpolate({ startAngle: 0, endAngle: 0 }, d);
+          .attrTween('d', ((d) => {
+            const interpolate = d3.interpolate({ startAngle: 0, endAngle: 0 }, d);
             return function(t) {
               return arc(interpolate(t));
             };
-          });
+          }));
 
         temp.exit()
           .remove();
       });
-      
         let newLabel = svg.append('text')
           .attr('text-anchor', 'middle')
           .attr('class', 'domain')

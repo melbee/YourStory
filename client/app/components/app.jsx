@@ -22,8 +22,6 @@ export default class App extends React.Component {
   }
 
   render() {
-    // return (
-    // );
 
     return (
       <Router history={browserHistory}>
