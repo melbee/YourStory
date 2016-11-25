@@ -151,8 +151,8 @@ module.exports = {
                 method: 'get',
                 url: apiUrl + hashURL,
                 auth: {
-                  username: 'UL1QVH3FAtR6eoEJJIs4',
-                  password: 'ZCZCYLA6wtqYNDpxbbRE',
+                  username: process.env.API_KEY,
+                  password: process.env.API_SECRET,
                 },
               })
               .then((response) => {
