@@ -1,3 +1,5 @@
+'use strict'
+
 import React from 'react';
 
 export default class OptionsList extends React.Component { //DUMB COMPONENT THAT ONLY RENDERS PROPS
