@@ -7,6 +7,7 @@ import visData from './reducers/history';
 import catData from './reducers/catData';
 import weekData from './reducers/weekData';
 import username from './reducers/username';
+import graphOptions from './reducers/graphOptions';
 
 import { loadState } from './chrome/storage';
 
@@ -20,7 +21,8 @@ let reducers = combineReducers({
   visData,
   catData,
   weekData,
-  username
+  username,
+  graphOptions
 });
 
 
