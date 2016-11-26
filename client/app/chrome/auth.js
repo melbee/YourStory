@@ -19,7 +19,7 @@ export default function getToken() {
     x.open('GET', 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + token);
     x.onload = function () {
       const userInfo = JSON.parse(x.response);
-      // console.log('User info from chrome: ', userInfo);
+      console.log('User info from chrome: ', userInfo);
       axios({
         method: 'post',
         url: process.env.HOST + '/api/users', // 'http://yourstory-app.herokuapp.com/api/history'

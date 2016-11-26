@@ -228,7 +228,7 @@ module.exports = {
         console.log("USER", user.get({
           plain: true,
         }));
-
+        req.session.chromeID = id;
         res.json(req.session.chromeID);
       });
   },
