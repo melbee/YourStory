@@ -20,51 +20,75 @@ export default class GraphList extends React.Component {
     this.state = {
       selectValue: 'select a domain from graph',
       selectValueIndex: '',
-      // allOptionsFromStore: {},
       firstOption: '',
       secondOption: '',
       thirdOption: '',
+      natashaData: [],
     };
   }
 
   natashaData() {
     console.log("checking state inside natashaData: ", this.state);
+    console.log("weekData inside natashaData: ", this.props.weekData);
+    const data = [];
+    this.props.weekData.map((dayObj) => {
+      const newDayObj = {};
+
+      newDayObj.date = dayObj.date;
+      newDayObj.domains = [];
+
+      const domainObj = {};
+
+      domainObj.domain = 'allData';
+      domainObj.visits = dayObj.count;
+
+      newDayObj.domains.push(domainObj);
+
+      data.push(newDayObj);
+    });
+    
+    this.setState({
+      natashaData: data,
+    }, () => {
+      console.log("new data obj for Natasha: ", this.state.natashaData);
+    });
   }
 
   graphChange(graphValue, graphValueIndex) {
-    // console.log("graphValue, graphValueIndex: ", graphValue, graphValueIndex);
+    const updateState = new Promise((resolve, reject) => {
+      if (graphValueIndex === '0') {
+        console.log("trying to setState for 0");
+        resolve(this.setState({
+          selectValue: graphValue,
+          selectValueIndex: graphValueIndex,
+          firstOption: graphValue,
+        }, () => {
+          console.log("check state callback", this.state);
+        }));
+      } else if (graphValueIndex === '1') {
+        console.log("trying to setState for 1");
+        resolve(this.setState({
+          selectValue: graphValue,
+          selectValueIndex: graphValueIndex,
+          secondOption: graphValue,
+        }, () => {
+          console.log("check state callback", this.state);
+        }));
+      } else if (graphValueIndex === '2') {
+        console.log("trying to setState for 2");
+        resolve(this.setState({
+          selectValue: graphValue,
+          selectValueIndex: graphValueIndex,
+          thirdOption: graphValue,
+        }, () => {
+          console.log("check state callback", this.state);
+        }));
+      }
+    });
 
-    if (graphValueIndex === '0') {
-      console.log("trying to setState for 0");
-      this.setState({
-        selectValue: graphValue,
-        selectValueIndex: graphValueIndex,
-        firstOption: graphValue,
-      }, () => {
-        console.log("check state callback", this.state);
-      });
-    } else if (graphValueIndex === '1') {
-      console.log("trying to setState for 1");
-      this.setState({
-        selectValue: graphValue,
-        selectValueIndex: graphValueIndex,
-        secondOption: graphValue,
-      }, () => {
-        console.log("check state callback", this.state);
-      });  
-    } else if (graphValueIndex === '2') {
-      console.log("trying to setState for 2");
-      this.setState({
-        selectValue: graphValue,
-        selectValueIndex: graphValueIndex,
-        thirdOption: graphValue,
-      }, () => {
-        console.log("check state callback", this.state);
-      });
-    }
-
-    // console.log("graphValue after changing state: ", this.state);
-    this.natashaData();
+    updateState.then(() => {
+      this.natashaData();
+    });
   }
 
   render() {
@@ -90,7 +114,7 @@ export default class GraphList extends React.Component {
           <br />
         </div>
         <div className="data-parent-container">
-          <Graph data={this.state.selectValue} />
+          <Graph data={this.state.natashaData} />
         </div>
       </div>
     );

@@ -15,19 +15,18 @@ import store from '../store';
 export default class DomainList extends React.Component {
   constructor(props) {
     super(props);
-    console.log("props from domainList.jsx: ", props);
-    console.log("this.state from domainslist ==== ", this.state);
+    // console.log("props from domainList.jsx: ", props);
+    // console.log("this.state from domainslist ==== ", this.state);
     this.state = {
       selectValue: '',
       selectValueIndex: '',
-      // allOptionsFromStore: {},
       firstOption: '',
       secondOption: '',
       thirdOption: '',
     };
 
-    console.log("this.props from domainList after: ", this.props);
-    console.log("this.state from DomainList after: ", this.state);
+    // console.log("this.props from domainList after: ", this.props);
+    // console.log("this.state from DomainList after: ", this.state);
   }
 
   changeWebsite(e) {
