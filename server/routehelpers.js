@@ -74,6 +74,27 @@ module.exports = {
       return resolve(getUser());
     });
 
+    //================== DEFINE USER FUNCTION FOR LATER ASYNC CALL===============
+    //==========================================================================
+        const findUser = () => {
+          User.findOne({ where: { chrome_id: req.session.chromeID } })
+          .then((user) => {
+
+            let visData = [];
+
+            user.getDomains()
+            .then((domains) => {
+              for (let i = 0; i < domains.length; i++) {
+                visData.push(
+                  { domain: domains[i].dataValues.domain,
+                    visits: domains[i].dataValues.users_domains.count }
+                  );
+              }
+              res.status(201).json(visData);
+            });
+          });
+        };
+
     // ===============================================================
     // == Save All Domains to Domains table & Return as Promise ====
     // ===============================================================
@@ -87,7 +108,7 @@ module.exports = {
             .then(() => {
               const date = new Date();
               DateTable
-              .findOrCreate({ where: { dateOnly: date, dateTime: date } })
+              .findOrCreate({ where: { dateOnly: date } })
               .catch((err) => {
                 console.log('error saving one date: ', err);
               });
@@ -118,7 +139,8 @@ module.exports = {
       .findOne({ where: { chrome_id: req.session.chromeID } })
       .then((user) => {
         const userID = user['dataValues']['id'];
-
+        let finishedCount = 0;
+        const domLength = uniqueDomains.length;
       // ==== save domains for a current user =====
       for (let key in uniqueDomains) {
         const userID = user['dataValues']['id'];
@@ -163,6 +185,10 @@ module.exports = {
                   domain.updateAttributes({
                     categoryId: cat[0].dataValues.id,
                   });
+                  finishedCount ++
+                  if(finishedCount === domLength) {
+                    findUser();
+                  }
                 })
                 .catch((err) => {
                   console.log('error finding or creating category', err);
@@ -185,23 +211,6 @@ module.exports = {
       });
     });
 
-
-    User.findOne({ where: { chrome_id: req.session.chromeID } })
-    .then((user) => {
-
-      let visData = [];
-
-      user.getDomains()
-      .then((domains) => {
-        for (let i = 0; i < domains.length; i++) {
-          visData.push(
-            { domain: domains[i].dataValues.domain,
-              visits: domains[i].dataValues.users_domains.count }
-            );
-        }
-        res.status(201).json(visData);
-      });
-    });
   },
 
   postUser: (req, res) => {
@@ -331,6 +340,7 @@ module.exports = {
   },
 
   getWeekData: (req, res) => {
+    console.log("ID:::", req.session.chromeID)
 
     const todayRaw = new Date();
     const today = todayRaw.getUTCDate();
@@ -349,6 +359,7 @@ module.exports = {
 
     // construct an array of dates. We will map over this array, feeding each date into a
     // promised query to the database to return domain information for each day
+
     const getWeek = () => {
       const weekArray = [];
       for(let dia in daysOfTheWeek) {
@@ -370,7 +381,10 @@ module.exports = {
           },
         })
         .then((response) => { // get all domains for specific date
-          const id = response.dataValues.id;
+          let id;
+          if(response !== null) {
+            id = response.dataValues.id;
+          } else { id = 1; }
           DateDomain
           .findAll({
             where: {
@@ -378,10 +392,12 @@ module.exports = {
             },
           })
           .then((response) => { // save all domains to array and return them
-            const domainsByDate = response.map((domain) => {
-              return domain.dataValues;
-            });
-            return resolve(domainsByDate);
+
+              const domainsByDate = response.map((instance) => {
+                return instance.dataValues;
+              });
+
+             return resolve(domainsByDate);
           })
           .catch((err) => {
             console.log('ERROR INSIDE DATEDOMAIN QUERY: ', err);
@@ -403,13 +419,18 @@ module.exports = {
     // array inside promisedWeek
     const getNameAndDate = (entry) => {
       return new Promise((resolve, reject) => {
-        Domain.findOne({ where: { id: entry.domainId } })
+       User.findOne({ where: { chrome_id: req.session.chromeID } })
+        .then((user) => {
+        Domain.findOne({ where: { id: entry.domainId, userId: user.dataValues.id } })
         .then((domain) => {
+          console.log("DOMAIN", domain.dataValues)
           DateTable.findOne({ where: { id: entry.dateId } })
           .then((date) => {
+            console.log("DATE", date.dataValues)
             DateDomain.findOne({ where: { domainId: entry.domainId } })
             .then((datedDom) => {
-              const nameDateCount = { count : datedDom.dataValues.count, domain: domain.dataValues.domain, date: date.dataValues.dateOnly }
+              console.log("DATEDDOM", domain.dataValues.domain)
+              const nameDateCount = { count: datedDom.dataValues.count, domain: domain.dataValues.domain, date: date.dataValues.dateOnly }
                return resolve(nameDateCount);
             })
             .catch((err) => {
@@ -418,13 +439,17 @@ module.exports = {
           })
           .catch((err) => {
             console.log("ERROR MATCHING DATE AND NAME IN GETNAME: ", err)
-          })
+          });
         })
         .catch((err) => {
           console.log("ERROR FINDING DOM IN GETNAME: ", err)
-        })
-      })
-    }
+        });
+       })
+     })
+    .catch((err) => {
+      console.log("ERROR FINDING USER IN GETNAME: ", err)
+    });
+  }
 
     // make all promised arrays inside promisedArray wait to resolve until their promised
     // objects have resolved
@@ -441,6 +466,7 @@ module.exports = {
         resolve(promisedArr);
       })
       .then((promisedArray) => {
+        console.log("PROMISED ARRAY", promisedArray)
         const resolvedArrays = promisedArray.map((subArray) => {
           return Promise.all(subArray);
         });
@@ -453,23 +479,38 @@ module.exports = {
         console.log("ERROR INSIDE PROMISED ARRAY: ", err)
       })
       .then((finalArray) => {
-        console.log('FINAL WEEK DATA ARRAY', finalArray);
-        res.status(200).json(
-          finalArray.map((arr) => {
-            const date = arr[0].date.toISOString().slice(0, 10).replace(/-/g, '');
+        // console.log("FINAL ARRAY", _.uniq(finalArray.map((arr) => {
+        //   const finalObj = {};
+        //   const date = arr[0].date.toISOString().slice(0, 10).replace(/-/g, '');
+        //     finalObj.date = date;
+        //     finalObj.domains = arr.map((obj) => {
+        //       return { domain: obj.domain, count: obj.count };
+        //     });
+        //     const toSum = arr.map((obj) => {
+        //       return obj.count;
+        //     });
+        //     finalObj.totalCount = toSum.reduce((mem, curr) => {
+        //       return mem + curr;
+        //     });
+        //   return finalObj;
+        // }), ((obj) => { return obj.date; })))
+        res.status(200).send(
+          _.uniq(finalArray.map((arr) => {
+            console.log("FINAL ARRAY", finalArray)
             const finalObj = {};
-            finalObj.date = date;
-            finalObj.domains = arr.map((obj) => {
-              return { domain: obj.domain, visits: obj.count };
-            });
-            const toSum = arr.map((obj) => {
-              return obj.count;
-            });
-            finalObj.count = toSum.reduce((mem, curr) => {
-              return mem + curr;
-            });
+            const date = arr[0].date.toISOString().slice(0, 10).replace(/-/g, '');
+              finalObj.date = date;
+              finalObj.domains = arr.map((obj) => {
+                return { domain: obj.domain, count: obj.count };
+              });
+              const toSum = arr.map((obj) => {
+                return obj.count;
+              });
+              finalObj.totalCount = toSum.reduce((mem, curr) => {
+                return mem + curr;
+              });
             return finalObj;
-          }));
+          }), ((obj) => { return obj.date; })));
       })
       .catch((err) => {
         console.log("ERROR INSIDE FINAL OBJECT CONSTRUCTION: ", err);
