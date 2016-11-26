@@ -61,7 +61,7 @@ module.exports = {
     // ================== PROMISE USER ID ============================
     // ===============================================================
     const getUser = () => {
-      const id = req.body.chromeID;
+      const id = req.session.chromeID;
       return User.findOne({ where: { chrome_id: id } })
       .then((user) => {
         return user['dataValues']['id'];
@@ -78,7 +78,7 @@ module.exports = {
     //================== DEFINE USER FUNCTION FOR LATER ASYNC CALL===============
     //==========================================================================
         const findUser = () => {
-          const id = req.body.chromeID;
+          const id = req.session.chromeID;
           User.findOne({ where: { chrome_id: id } })
           .then((user) => {
 
@@ -137,7 +137,7 @@ module.exports = {
     // ===============================================================
     promisedSavedDomains
     .then(() => {
-      const id = req.body.chromeID;
+      const id = req.session.chromeID;
       User
       .findOne({ where: { chrome_id: id } })
       .then((user) => {
@@ -236,7 +236,7 @@ module.exports = {
   getUser: (req, res) => {
     console.log("GETUSER BODY", req.body.chromeID);
     console.log("GETUSER SESSION", req.session.chromeID);
-    const id = req.body.chromeID;
+    const id = req.session.chromeID;
 
     User.findOne({ where: { chrome_id: id } })
     .then((user) => {
