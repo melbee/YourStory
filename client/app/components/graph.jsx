@@ -12,7 +12,7 @@ import * as d3 from 'd3';
 
 export default class Graph extends React.Component {
 
-  componentDidMount() {
+  componentDidMount() {    
     // let data = this.props.weekData;
 
    // console.log("GRAPH DATA", this.props.weekData)
@@ -204,7 +204,12 @@ export default class Graph extends React.Component {
 
   render() {
     return (
-      <div id="graph"><svg width="960" height="200"></svg></div>
+      <div id="graph">        
+        {this.props.data}
+        console.log("this.props.data", {this.props.data})
+        <svg width="960" height="200"></svg>
+      </div>
+
     );
   }
 

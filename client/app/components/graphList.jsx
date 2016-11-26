@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import Graph from './graph';
 import DomainList from './domainList';
 
+
 @connect((store) => { 
-  console.log("store from graphList:", store);
   return {
     weekData: store.weekData,
     selectedGraphOptions: store.selectedGraphOptions,
@@ -15,46 +15,71 @@ import DomainList from './domainList';
 export default class GraphList extends React.Component {
   constructor(props) {
     super(props);
-    // console.log("this.props.list from graphList.jsx:", this.props);
+    console.log("tprops from graphList.jsx:", this.props);
+    
     this.state = {
       selectValue: '',
-      allOptions: ['a', 'b'],
-      // firstOption: this.state.allOptions[0],
-      // secondOption: this.state.allOptions[1],
-      // thirdOption: '',
-    }
+      selectValueIndex: 0,
+      allOptionsFromStore: {},
+      firstOption: '',
+      secondOption: '',
+      thirdOption: '',
+    };
   }
 
-  graphChange(graphValue) {
-    // console.log("graphValue before changing state: ", graphValue);
-    // console.log("this.state.allOptions.length: ", this.state);
+  graphChange(graphValue, graphValueIndex) {
+    console.log("graphValue, graphValueIndex: ", graphValue, graphValueIndex)
 
-    // if ((this.state.allOptions.length <= 3)) {
-    //   console.log("inside allOptions");
-    //   this.setState({
-    //     allOptions: this.state.allOptions.push(graphValue),
-    //   })
+    // let first = null;
+    // let second = null;
+    // let third = null;
+
+    // if (graphValueIndex === '0') {
+    //   console.log("trying to setState for 0");
+    //   first = graphValue;
+    // } else if (graphValueIndex === 1) {
+    //   console.log("trying to setState for 1");
+    //   second = graphValue;
+    // } else if (graphValueIndex === 2) {
+    //   console.log("trying to setState for 2");
+    //   second = graphValue;
     // }
 
     // this.setState({
     //   selectValue: graphValue,
+    //   selectValueIndex: graphValueIndex,
+    //   firstOption: first,
+    //   secondOption: second,
+    //   thirdOption: third,
     // });
 
-    // this.props.dispatch({
-    //   type: 'FETCH_GRAPH_OPTIONS',
-    //   payload: 'hello',
-    // });
-
-    // if (this.state.firstOption === '') {
-    //   this.setState({
-    //     firstOption: graphValue,
-    //   });
-    // }
+    if (graphValueIndex === '0') {
+      console.log("trying to setState for 0");
+      this.setState({
+        selectValue: graphValue,
+        selectValueIndex: graphValueIndex,
+        firstOption: graphValue,
+      });      
+    } else if (graphValueIndex === '1') {
+      console.log("trying to setState for 1");
+      this.setState({
+        selectValue: graphValue,
+        selectValueIndex: graphValueIndex,
+        secondOption: graphValue,
+      });  
+    } else if (graphValueIndex === '2') {
+      console.log("trying to setState for 2");
+      this.setState({
+        selectValue: graphValue,
+        selectValueIndex: graphValueIndex,
+        thirdOption: graphValue,
+      });
+    }
 
     console.log("graphValue after changing state: ", this.state);
   }
 
-  render() {    
+  render() {
     const uniqueDomains = [];
 
     this.props.weekData.map((rawDayObj) => {
@@ -71,13 +96,13 @@ export default class GraphList extends React.Component {
     return (
       <div>
         <div className="graph-row">
-          {graphData.map((domainList) =>
-            <DomainList domain={domainList} getValue={this.graphChange.bind(this)}/>
+          {graphData.map((domainList, domainListIndex) => 
+            <DomainList domainIndex={domainListIndex} domain={domainList} getValue={this.graphChange.bind(this)} />
           )}
           <br />
         </div>
         <div className="data-parent-container">
-          <Graph />
+          <Graph data={this.state.selectValue} />
         </div>
       </div>
     );
