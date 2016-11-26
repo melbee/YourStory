@@ -8,7 +8,7 @@ import DomainList from './domainList';
 @connect((store) => { 
   return {
     weekData: store.weekData,
-    selectedGraphOptions: store.selectedGraphOptions,
+    // selectedGraphOptions: store.selectedGraphOptions,
   };
 })
 
@@ -18,40 +18,21 @@ export default class GraphList extends React.Component {
     console.log("tprops from graphList.jsx:", this.props);
     
     this.state = {
-      selectValue: '',
-      selectValueIndex: 0,
-      allOptionsFromStore: {},
+      selectValue: 'select a domain from graph',
+      selectValueIndex: '',
+      // allOptionsFromStore: {},
       firstOption: '',
       secondOption: '',
       thirdOption: '',
     };
   }
 
+  natashaData() {
+    console.log("checking state inside natashaData: ", this.state);
+  }
+
   graphChange(graphValue, graphValueIndex) {
-    console.log("graphValue, graphValueIndex: ", graphValue, graphValueIndex)
-
-    // let first = null;
-    // let second = null;
-    // let third = null;
-
-    // if (graphValueIndex === '0') {
-    //   console.log("trying to setState for 0");
-    //   first = graphValue;
-    // } else if (graphValueIndex === 1) {
-    //   console.log("trying to setState for 1");
-    //   second = graphValue;
-    // } else if (graphValueIndex === 2) {
-    //   console.log("trying to setState for 2");
-    //   second = graphValue;
-    // }
-
-    // this.setState({
-    //   selectValue: graphValue,
-    //   selectValueIndex: graphValueIndex,
-    //   firstOption: first,
-    //   secondOption: second,
-    //   thirdOption: third,
-    // });
+    // console.log("graphValue, graphValueIndex: ", graphValue, graphValueIndex);
 
     if (graphValueIndex === '0') {
       console.log("trying to setState for 0");
@@ -59,13 +40,17 @@ export default class GraphList extends React.Component {
         selectValue: graphValue,
         selectValueIndex: graphValueIndex,
         firstOption: graphValue,
-      });      
+      }, () => {
+        console.log("check state callback", this.state);
+      });
     } else if (graphValueIndex === '1') {
       console.log("trying to setState for 1");
       this.setState({
         selectValue: graphValue,
         selectValueIndex: graphValueIndex,
         secondOption: graphValue,
+      }, () => {
+        console.log("check state callback", this.state);
       });  
     } else if (graphValueIndex === '2') {
       console.log("trying to setState for 2");
@@ -73,10 +58,13 @@ export default class GraphList extends React.Component {
         selectValue: graphValue,
         selectValueIndex: graphValueIndex,
         thirdOption: graphValue,
+      }, () => {
+        console.log("check state callback", this.state);
       });
     }
 
-    console.log("graphValue after changing state: ", this.state);
+    // console.log("graphValue after changing state: ", this.state);
+    this.natashaData();
   }
 
   render() {
