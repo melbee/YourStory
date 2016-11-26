@@ -21,6 +21,7 @@ import Footer from './footer';
 export default class App extends React.Component {
 
   componentWillMount() {
+    console.log("HELLOOOOOO");
     getToken();
   }
 
@@ -34,7 +35,7 @@ export default class App extends React.Component {
               <div className="row">
                 <div className="col-sm-1"></div>
                 <div className="col-sm-5">
-                  <div >                    
+                  <div >
                     <img className="logoImg" alt="Logo" src="../public/assets/logo-yourstory.png" />
                   </div>
                 </div>
