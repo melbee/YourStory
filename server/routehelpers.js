@@ -234,7 +234,8 @@ module.exports = {
   },
 
   getUser: (req, res) => {
-    console.log("inside get user");
+    console.log("GETUSER BODY", req.body.chromeID);
+    console.log("GETUSER SESSION", req.session.chromeID);
     const id = req.body.chromeID;
 
     User.findOne({ where: { chrome_id: id } })
