@@ -218,6 +218,8 @@ module.exports = {
 
   postUser: (req, res) => {
     const id = req.body.chromeID;
+    console.log("BODY", req.body.chromeID);
+    console.log("SESSION", req.session.chromeID);
 
     User.findOrCreate({ where: { chrome_id: id },
       defaults: { username: req.body.username },
