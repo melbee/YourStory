@@ -6,6 +6,7 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 @connect((store) =>{
   return {
     visData: store.visData,
+    catData: store.catData,
   };
 })
 
@@ -16,16 +17,16 @@ export default class ListView extends React.Component {
     this.state = {};
 
     this.options = {
-      defaultSortName: 'name',  // default sort column name
-      defaultSortOrder: 'desc',  // default sort order
+      clearSearch: true,
     };
   }
 
   render() {
     return (
-      <div>Hello Bruna! 🐠
-        <BootstrapTable data={this.props.visData} options={this.options} striped hover>
+      <div>
+        <BootstrapTable data={this.props.visData} exportCSV search={ true } options={this.options} striped hover>
           <TableHeaderColumn isKey dataField="domain" dataSort> Domains </TableHeaderColumn>
+          <TableHeaderColumn dataSort> Category </TableHeaderColumn>
           <TableHeaderColumn dataField="visits" dataSort> Visits</TableHeaderColumn>
         </BootstrapTable>
       </div>

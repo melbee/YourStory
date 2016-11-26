@@ -11,53 +11,48 @@ import * as d3 from 'd3';
 
 export default class Categories extends React.Component {
   componentDidMount() {
-
     const catParser = {
-        "uncategorized": 'Others',
-        "searchenginesandportals": 'Search Engines',
-        "newsandmedia": 'News',
-        "streamingmedia": 'Streaming Media',
-        "entertainment": 'Entertainment',
-        "shopping": 'Shopping',
-        "vehicles": 'Vehicles',
-        "gambling": 'Gambling',
-        "informationtech": 'Technology',
-        "games": 'Games',
-        "sports": 'Sports',
-        "economyandfinance": 'Economy & Finance',
-        "jobrelated": 'Jobs & Career',
-        "hacking": 'Hacking',
-        "messageboardsandforums": 'Forums',
-        "socialnetworking": 'Social Media',
-        "chatandmessaging": 'Chat & Instant Messaging',
-        "mediasharing": 'Media Sharing',
-        "blogsandpersonal": 'Blogs',
-        "health": 'Health',
-        "adult": 'Adult Content',
-        "personals": 'Dating',
-        "religion": 'Religion',
-        "travel": 'Travel',
-        "abortion": 'Abortion',
-        "education": 'Education',
-        "drugs": 'Drugs',
-        "alcoholandtobacco": 'Alcohol & Tobbaco',
-        "business": 'Business',
-        "advertising": 'Advertising',
-        "humor": 'Humor',
-        "foodandrecipes": 'Food & Recipes',
-        "realestate": 'Real State',
-        "weapons": 'Weapons',
-        "proxyandfilteravoidance": 'Proxy & Filter Avoidance',
-        "virtualreality": 'Virtual Reality',
-        "translators": 'Translators',
-        "parked": 'Parked Sites',
-        "illegalcontent": 'Illegal Content',
-        "contentserver": 'Content Servers'
+      uncategorized: 'Others',
+      searchenginesandportals: 'Search Engines',
+      newsandmedia: 'News',
+      streamingmedia: 'Streaming Media',
+      entertainment: 'Entertainment',
+      shopping: 'Shopping',
+      vehicles: 'Vehicles',
+      gambling: 'Gambling',
+      informationtech: 'Technology',
+      games: 'Games',
+      sports: 'Sports',
+      economyandfinance: 'Economy & Finance',
+      jobrelated: 'Jobs & Career',
+      hacking: 'Hacking',
+      messageboardsandforums: 'Forums',
+      socialnetworking: 'Social Media',
+      chatandmessaging: 'Chat & Instant Messaging',
+      mediasharing: 'Media Sharing',
+      blogsandpersonal: 'Blogs',
+      health: 'Health',
+      adult: 'Adult Content',
+      personals: 'Dating',
+      religion: 'Religion',
+      travel: 'Travel',
+      abortion: 'Abortion',
+      education: 'Education',
+      drugs: 'Drugs',
+      alcoholandtobacco: 'Alcohol & Tobbaco',
+      business: 'Business',
+      advertising: 'Advertising',
+      humor: 'Humor',
+      foodandrecipes: 'Food & Recipes',
+      realestate: 'Real State',
+      weapons: 'Weapons',
+      proxyandfilteravoidance: 'Proxy & Filter Avoidance',
+      virtualreality: 'Virtual Reality',
+      translators: 'Translators',
+      parked: 'Parked Sites',
+      illegalcontent: 'Illegal Content',
+      contentserver: 'Content Servers',
     };
-
-    // console.log('cat data from catData.jsx', this.props.catData);
-
-    // console.log('cat data from catData.jsx', this.props.catData);
 
     const datasetCreator = ((data) => {
       return data.map((item) => {
@@ -65,15 +60,12 @@ export default class Categories extends React.Component {
       });
     });
 
-    let dataset = datasetCreator(this.props.catData);
-
+    const dataset = datasetCreator(this.props.catData);
     const width = 360;
     const height = 360;
     const radius = Math.min(width, height) / 2;
     const donutWidth = 55;
-    const legendRectSize = 18;
-    const legendSpacing = 4;
-    const colorArray =[
+    const colorArray = [
       'rgb(84, 135, 182)',
       'rgb(98, 140, 184)',
       // 'rgb(113, 144, 185)',
@@ -86,9 +78,8 @@ export default class Categories extends React.Component {
       // 'rgb(212, 178, 198)',
       'rgb(227, 182, 199)',
       'rgb(241, 187, 201)',
-      'rgb(255, 192, 203)']
-    const color = d3.scaleOrdinal(colorArray);
-                                                       
+      'rgb(255, 192, 203)'];
+    const color = d3.scaleOrdinal(colorArray);                                           
     const svg = d3.select('#chart')
       .append('svg')
       .attr('width', width)
