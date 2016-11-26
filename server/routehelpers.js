@@ -61,7 +61,8 @@ module.exports = {
     // ================== PROMISE USER ID ============================
     // ===============================================================
     const getUser = () => {
-      return User.findOne({ where: { chrome_id: req.session.chromeID } })
+      const id = req.body.chromeID;
+      return User.findOne({ where: { chrome_id: id } })
       .then((user) => {
         return user['dataValues']['id'];
       })
@@ -77,7 +78,8 @@ module.exports = {
     //================== DEFINE USER FUNCTION FOR LATER ASYNC CALL===============
     //==========================================================================
         const findUser = () => {
-          User.findOne({ where: { chrome_id: req.session.chromeID } })
+          const id = req.body.chromeID;
+          User.findOne({ where: { chrome_id: id } })
           .then((user) => {
 
             let visData = [];
@@ -135,8 +137,9 @@ module.exports = {
     // ===============================================================
     promisedSavedDomains
     .then(() => {
+      const id = req.body.chromeID;
       User
-      .findOne({ where: { chrome_id: req.session.chromeID } })
+      .findOne({ where: { chrome_id: id } })
       .then((user) => {
         const userID = user['dataValues']['id'];
         let finishedCount = 0;
@@ -185,7 +188,7 @@ module.exports = {
                   domain.updateAttributes({
                     categoryId: cat[0].dataValues.id,
                   });
-                  finishedCount ++
+                  finishedCount += 1;
                   if(finishedCount === domLength) {
                     findUser();
                   }
@@ -214,13 +217,13 @@ module.exports = {
   },
 
   postUser: (req, res) => {
-    req.session.chromeID = req.body.chromeID;
+    const id = req.body.chromeID;
 
-    User.findOrCreate({ where: { chrome_id: req.session.chromeID },
+    User.findOrCreate({ where: { chrome_id: id },
       defaults: { username: req.body.username },
     })
       .spread((user, created) => {
-        console.log(user.get({
+        console.log("USER", user.get({
           plain: true,
         }));
 
@@ -230,9 +233,9 @@ module.exports = {
 
   getUser: (req, res) => {
     console.log("inside get user");
-    req.session.chromeID = req.body.chromeID;
+    const id = req.body.chromeID;
 
-    User.findOne({ where: { chrome_id: req.session.chromeID } })
+    User.findOne({ where: { chrome_id: id } })
     .then((user) => {
       console.log("user from getUser", user);
       if (user === null) {
@@ -247,7 +250,8 @@ module.exports = {
 
   getCatData: (req, res) => {
     const getAllUserDomains = () => {
-      return User.findOne({ where: { chrome_id: req.session.chromeID } })
+      const id = req.body.chromeID;
+      return User.findOne({ where: { chrome_id: id } })
       .then((user) => {
         return user.getDomains()
         .catch((err) => {
@@ -419,7 +423,8 @@ module.exports = {
     // array inside promisedWeek
     const getNameAndDate = (entry) => {
       return new Promise((resolve, reject) => {
-       User.findOne({ where: { chrome_id: req.session.chromeID } })
+        const id = req.body.chromeID;
+       User.findOne({ where: { chrome_id: id } })
         .then((user) => {
         Domain.findOne({ where: { id: entry.domainId, userId: user.dataValues.id } })
         .then((domain) => {
@@ -494,7 +499,7 @@ module.exports = {
         //     });
         //   return finalObj;
         // }), ((obj) => { return obj.date; })))
-        res.status(200).send(
+        res.status(200).json(
           _.uniq(finalArray.map((arr) => {
             console.log("FINAL ARRAY", finalArray)
             const finalObj = {};
