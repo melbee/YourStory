@@ -74,6 +74,27 @@ module.exports = {
       return resolve(getUser());
     });
 
+    //================== DEFINE USER FUNCTION FOR LATER ASYNC CALL===============
+    //==========================================================================
+        const findUser = () => {
+          User.findOne({ where: { chrome_id: req.session.chromeID } })
+          .then((user) => {
+
+            let visData = [];
+
+            user.getDomains()
+            .then((domains) => {
+              for (let i = 0; i < domains.length; i++) {
+                visData.push(
+                  { domain: domains[i].dataValues.domain,
+                    visits: domains[i].dataValues.users_domains.count }
+                  );
+              }
+              res.status(201).json(visData);
+            });
+          });
+        };
+
     // ===============================================================
     // == Save All Domains to Domains table & Return as Promise ====
     // ===============================================================
@@ -87,7 +108,7 @@ module.exports = {
             .then(() => {
               const date = new Date();
               DateTable
-              .findOrCreate({ where: { dateOnly: date, dateTime: date } })
+              .findOrCreate({ where: { dateOnly: date } })
               .catch((err) => {
                 console.log('error saving one date: ', err);
               });
@@ -118,7 +139,8 @@ module.exports = {
       .findOne({ where: { chrome_id: req.session.chromeID } })
       .then((user) => {
         const userID = user['dataValues']['id'];
-
+        let finishedCount = 0;
+        const domLength = uniqueDomains.length;
       // ==== save domains for a current user =====
       for (let key in uniqueDomains) {
         const userID = user['dataValues']['id'];
@@ -163,6 +185,10 @@ module.exports = {
                   domain.updateAttributes({
                     categoryId: cat[0].dataValues.id,
                   });
+                  finishedCount ++
+                  if(finishedCount === domLength) {
+                    findUser();
+                  }
                 })
                 .catch((err) => {
                   console.log('error finding or creating category', err);
@@ -185,23 +211,6 @@ module.exports = {
       });
     });
 
-
-    User.findOne({ where: { chrome_id: req.session.chromeID } })
-    .then((user) => {
-
-      let visData = [];
-
-      user.getDomains()
-      .then((domains) => {
-        for (let i = 0; i < domains.length; i++) {
-          visData.push(
-            { domain: domains[i].dataValues.domain,
-              visits: domains[i].dataValues.users_domains.count }
-            );
-        }
-        res.status(201).json(visData);
-      });
-    });
   },
 
   postUser: (req, res) => {
