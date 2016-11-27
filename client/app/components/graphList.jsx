@@ -30,11 +30,10 @@ export default class GraphList extends React.Component {
   }
 
   natashaData() {
-    console.log("weekData:", this.props.weekData);
     console.log("checking state inside natashaData: ", this.state);
     console.log("weekData inside graphlist: ", this.props.weekData);
     const data = [];
-    this.props.weekData.map((dayObj) => {
+    this.props.weekData.map((dayObj) => {      
       const newDayObj = {};
 
       newDayObj.date = dayObj.date;
@@ -49,12 +48,14 @@ export default class GraphList extends React.Component {
 
       data.push(newDayObj);
     });
+
+    console.log("dayObj: ", data);
     
     this.setState({
       natashaData: data,
     }, () => {
-      store.dispatch(fetchGraphOptions(this.state.natashaData));
-      // console.log("new data obj for Natasha: ", this.props);
+      console.log("new data obj for Natasha: ", this.state.natashaData);
+      store.dispatch(fetchGraphOptions(this.state.natashaData));      
     });
   }
 

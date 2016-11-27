@@ -16,54 +16,52 @@ export default class Graph extends React.Component {
   //   console.log('this.props.data: ', this.props.data);
   // }
 
-  componentDidMount() {    
-    // let data = this.props.graphOptions;
+  componentDidMount() {
+    let data = this.props.graphOptions;
 
    console.log("GRAPH DATA", this.props.graphOptions)
 
-     let data = [{
-      date: '20161018',
-      domains: [{ domain: 'learn.makerpass.com', visits: 103 },
-                  { domain: 'repl.it', visits: 100 },
-                  { domain: 'allData', visits: 211 }],
-      },
-      { date: '20161019',
-        domains: [{ domain: 'learn.makerpass.com', visits: 78 },
-                  { domain: 'repl.it', visits: 57 },
-                  { domain: 'allData', visits: 200 }],
-      },
-      { date: '20161020',
-        domains: [{ domain: 'learn.makerpass.com', visits: 35 },
-                  { domain: 'repl.it', visits: 100 },
-                  { domain: 'allData', visits: 150 }],
-      },
-      { date: '20161021',
-        domains: [{ domain: 'learn.makerpass.com', visits: 250 },
-                  { domain: 'repl.it', visits: 50 },
-                  { domain: 'allData', visits: 99 }],
-      },
-      { date: '20161022',
-        domains: [{ domain: 'learn.makerpass.com', visits: 45 },
-                  { domain: 'repl.it', visits: 55 },
-                 { domain: 'allData', visits: 106 }],
-      },
-      { date: '20161023',
-        domains: [{ domain: 'learn.makerpass.com', visits: 200 },
-                  { domain: 'repl.it', visits: 90 },
-                  { domain: 'allData', visits: 200 }],
-      },
-      { date: '20161024',
-        domains: [{ domain: 'learn.makerpass.com', visits: 20 },
-                  { domain: 'repl.it', visits: 17 },
-                  { domain: 'haveibeenpwned.com', visits: 20 },
-                  { domain: 'redux.js.org', visits: 21 },
-                  { domain: 'v4-alpha.getbootstrap.com', visits: 20 },
-                  { domain: 'getbootstrap.com', visits: 13 },
-                  { domain: 'npmjs.com', visits: 11 }],
-        count: 122,
-      }]
-
-
+    // let data = [{
+    // date: '20161018',
+    // domains: [{ domain: 'learn.makerpass.com', visits: 103 },
+    //             { domain: 'repl.it', visits: 100 },
+    //             { domain: 'allData', visits: 211 }],
+    // },
+    // { date: '20161019',
+    //   domains: [{ domain: 'learn.makerpass.com', visits: 78 },
+    //             { domain: 'repl.it', visits: 57 },
+    //             { domain: 'allData', visits: 200 }],
+    // },
+    // { date: '20161020',
+    //   domains: [{ domain: 'learn.makerpass.com', visits: 35 },
+    //             { domain: 'repl.it', visits: 100 },
+    //             { domain: 'allData', visits: 150 }],
+    // },
+    // { date: '20161021',
+    //   domains: [{ domain: 'learn.makerpass.com', visits: 250 },
+    //             { domain: 'repl.it', visits: 50 },
+    //             { domain: 'allData', visits: 99 }],
+    // },
+    // { date: '20161022',
+    //   domains: [{ domain: 'learn.makerpass.com', visits: 45 },
+    //             { domain: 'repl.it', visits: 55 },
+    //            { domain: 'allData', visits: 106 }],
+    // },
+    // { date: '20161023',
+    //   domains: [{ domain: 'learn.makerpass.com', visits: 200 },
+    //             { domain: 'repl.it', visits: 90 },
+    //             { domain: 'allData', visits: 200 }],
+    // },
+    // { date: '20161024',
+    //   domains: [{ domain: 'learn.makerpass.com', visits: 20 },
+    //             { domain: 'repl.it', visits: 17 },
+    //             { domain: 'haveibeenpwned.com', visits: 20 },
+    //             { domain: 'redux.js.org', visits: 21 },
+    //             { domain: 'v4-alpha.getbootstrap.com', visits: 20 },
+    //             { domain: 'getbootstrap.com', visits: 13 },
+    //             { domain: 'npmjs.com', visits: 11 }],
+    //   count: 122,
+    // }]
     // console.log('chart data', data);
 
 
@@ -188,7 +186,7 @@ export default class Graph extends React.Component {
 
 
     //+++ somehow render all svgs at once by iterating +++
-      console.log('domains array', data[0].domains[1].domain)
+      // console.log('domains array', data[0].domains[1].domain)
 
 
     if (data[0].domains.length === 1) {
