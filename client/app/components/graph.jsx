@@ -189,15 +189,9 @@ export default class Graph extends React.Component {
       // console.log('domains array', data[0].domains[1].domain)
 
 
-    if (data[0].domains.length === 1) {
-      createDomainPath(data[0].domains[0].domain, '#E0B1F2');
-    } else if (data[0].domains.length === 2) {
-      createDomainPath(data[0].domains[0].domain, '#E0B1F2');
-      createDomainPath(data[0].domains[1].domain, '#6EBCD4');
-    } else if (data[0].domains.length === 3) {
-      createDomainPath(data[0].domains[0].domain, '#E0B1F2');
-      createDomainPath(data[0].domains[1].domain, '#6EBCD4');
-      createDomainPath(data[0].domains[2].domain, '#89D46E');
+    for (const domain of data[0].domains) {
+     const colors = ['#909BBD', '#DAB4C6', '#E8BFBB', '#8DB8CB', '#6B8EB9']
+     createDomainPath(domain.domain, colors.pop());
     }
   }
 
