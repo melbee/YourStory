@@ -3,63 +3,65 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as d3 from 'd3';
 
-//TODO: REMOVE STORE, ONLY USING PROPS
 @connect((store) => {
+  console.log("store inside graph: ", store)
   return {
     weekData: store.weekData,
+    graphOptions: store.graphOptions,
   };
 })
 
 export default class Graph extends React.Component {
+  // componentDidUpdate() {    
+  //   console.log('this.props.data: ', this.props.data);
+  // }
 
   componentDidMount() {
-    // let data = this.props.weekData;
+    let data = this.props.graphOptions;
 
-   // console.log("GRAPH DATA", this.props.weekData)
+   // console.log("GRAPH DATA", this.props.graphOptions)
 
-     let data = [{
-      date: '20161018',
-      domains: [{ domain: 'learn.makerpass.com', visits: 103 },
-                  { domain: 'repl.it', visits: 100 },
-                  { domain: 'allData', visits: 211 }],
-      },
-      { date: '20161019',
-        domains: [{ domain: 'learn.makerpass.com', visits: 78 },
-                  { domain: 'repl.it', visits: 57 },
-                  { domain: 'allData', visits: 200 }],
-      },
-      { date: '20161020',
-        domains: [{ domain: 'learn.makerpass.com', visits: 35 },
-                  { domain: 'repl.it', visits: 100 },
-                  { domain: 'allData', visits: 150 }],
-      },
-      { date: '20161021',
-        domains: [{ domain: 'learn.makerpass.com', visits: 250 },
-                  { domain: 'repl.it', visits: 50 },
-                  { domain: 'allData', visits: 99 }],
-      },
-      { date: '20161022',
-        domains: [{ domain: 'learn.makerpass.com', visits: 45 },
-                  { domain: 'repl.it', visits: 55 },
-                 { domain: 'allData', visits: 106 }],
-      },
-      { date: '20161023',
-        domains: [{ domain: 'learn.makerpass.com', visits: 200 },
-                  { domain: 'repl.it', visits: 90 },
-                  { domain: 'allData', visits: 200 }],
-      },
-      { date: '20161024',
-        domains: [{ domain: 'learn.makerpass.com', visits: 20 },
-                  { domain: 'repl.it', visits: 17 },
-                  { domain: 'haveibeenpwned.com', visits: 20 },
-                  { domain: 'redux.js.org', visits: 21 },
-                  { domain: 'v4-alpha.getbootstrap.com', visits: 20 },
-                  { domain: 'getbootstrap.com', visits: 13 },
-                  { domain: 'npmjs.com', visits: 11 }],
-        count: 122,
-      }]
-
-
+    // let data = [{
+    // date: '20161018',
+    // domains: [{ domain: 'learn.makerpass.com', visits: 103 },
+    //             { domain: 'repl.it', visits: 100 },
+    //             { domain: 'allData', visits: 211 }],
+    // },
+    // { date: '20161019',
+    //   domains: [{ domain: 'learn.makerpass.com', visits: 78 },
+    //             { domain: 'repl.it', visits: 57 },
+    //             { domain: 'allData', visits: 200 }],
+    // },
+    // { date: '20161020',
+    //   domains: [{ domain: 'learn.makerpass.com', visits: 35 },
+    //             { domain: 'repl.it', visits: 100 },
+    //             { domain: 'allData', visits: 150 }],
+    // },
+    // { date: '20161021',
+    //   domains: [{ domain: 'learn.makerpass.com', visits: 250 },
+    //             { domain: 'repl.it', visits: 50 },
+    //             { domain: 'allData', visits: 99 }],
+    // },
+    // { date: '20161022',
+    //   domains: [{ domain: 'learn.makerpass.com', visits: 45 },
+    //             { domain: 'repl.it', visits: 55 },
+    //            { domain: 'allData', visits: 106 }],
+    // },
+    // { date: '20161023',
+    //   domains: [{ domain: 'learn.makerpass.com', visits: 200 },
+    //             { domain: 'repl.it', visits: 90 },
+    //             { domain: 'allData', visits: 200 }],
+    // },
+    // { date: '20161024',
+    //   domains: [{ domain: 'learn.makerpass.com', visits: 20 },
+    //             { domain: 'repl.it', visits: 17 },
+    //             { domain: 'haveibeenpwned.com', visits: 20 },
+    //             { domain: 'redux.js.org', visits: 21 },
+    //             { domain: 'v4-alpha.getbootstrap.com', visits: 20 },
+    //             { domain: 'getbootstrap.com', visits: 13 },
+    //             { domain: 'npmjs.com', visits: 11 }],
+    //   count: 122,
+    // }]
     // console.log('chart data', data);
 
 
@@ -105,7 +107,7 @@ export default class Graph extends React.Component {
     margin = { top: 20, right: 80, bottom: 20, left: 50 },
     width = svg.attr("width") - margin.left - margin.right,
     height = svg.attr("height") - margin.top - margin.bottom,
-    g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    g = svg.append("g").attr("transform", "translate(" + 0 + "," + margin.top + ")");
 
 
     //======= CREATE X AND Y SCALES ======
@@ -184,27 +186,25 @@ export default class Graph extends React.Component {
 
 
     //+++ somehow render all svgs at once by iterating +++
-      console.log('domains array', data[0].domains[1].domain)
+      // console.log('domains array', data[0].domains[1].domain)
 
 
-    if (data[0].domains.length === 1) {
-      createDomainPath(data[0].domains[0].domain, '#E0B1F2');
-    } else if (data[0].domains.length === 2) {
-      createDomainPath(data[0].domains[0].domain, '#E0B1F2');
-      createDomainPath(data[0].domains[1].domain, '#6EBCD4');
-    } else if (data[0].domains.length === 3) {
-      createDomainPath(data[0].domains[0].domain, '#E0B1F2');
-      createDomainPath(data[0].domains[1].domain, '#6EBCD4');
-      createDomainPath(data[0].domains[2].domain, '#89D46E');
+    for (const domain of data[0].domains) {
+     const colors = ['#909BBD', '#DAB4C6', '#E8BFBB', '#8DB8CB', '#6B8EB9']
+     createDomainPath(domain.domain, colors.pop());
     }
-
-
-
   }
 
   render() {
     return (
-      <div id="graph"><svg width="960" height="200"></svg></div>
+      <div id="graph">
+        {this.props.data.map((dayItem) =>
+          <div>date from new week data passed as props: {dayItem.date}</div>
+        )}
+
+        <svg width="960" height="200" className="graph-svg"></svg>
+      </div>
+
     );
   }
 
