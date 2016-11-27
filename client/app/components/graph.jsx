@@ -4,59 +4,63 @@ import { connect } from 'react-redux';
 import * as d3 from 'd3';
 
 //TODO: REMOVE STORE, ONLY USING PROPS
-@connect((store) => {
-  return {
-    weekData: store.weekData,
-  };
-})
+// @connect((store) => {
+//   return {
+//     weekData: store.weekData,
+//   };
+// })
 
 export default class Graph extends React.Component {
-  componentDidMount() {    
-    // let data = this.props.weekData;
+  // componentDidUpdate() {    
+  //   console.log('this.props.data: ', this.props.data);
+  // }
+
+  componentDidUpdate() {    
+    let data = this.props.data;
 
    // console.log("GRAPH DATA", this.props.weekData)
 
-     let data = [{
-      date: '20161018',
-      domains: [{ domain: 'learn.makerpass.com', visits: 103 },
-                  { domain: 'repl.it', visits: 100 },
-                  { domain: 'allData', visits: 211 }],
-      },
-      { date: '20161019',
-        domains: [{ domain: 'learn.makerpass.com', visits: 78 },
-                  { domain: 'repl.it', visits: 57 },
-                  { domain: 'allData', visits: 200 }],
-      },
-      { date: '20161020',
-        domains: [{ domain: 'learn.makerpass.com', visits: 35 },
-                  { domain: 'repl.it', visits: 100 },
-                  { domain: 'allData', visits: 150 }],
-      },
-      { date: '20161021',
-        domains: [{ domain: 'learn.makerpass.com', visits: 250 },
-                  { domain: 'repl.it', visits: 50 },
-                  { domain: 'allData', visits: 99 }],
-      },
-      { date: '20161022',
-        domains: [{ domain: 'learn.makerpass.com', visits: 45 },
-                  { domain: 'repl.it', visits: 55 },
-                 { domain: 'allData', visits: 106 }],
-      },
-      { date: '20161023',
-        domains: [{ domain: 'learn.makerpass.com', visits: 200 },
-                  { domain: 'repl.it', visits: 90 },
-                  { domain: 'allData', visits: 200 }],
-      },
-      { date: '20161024',
-        domains: [{ domain: 'learn.makerpass.com', visits: 20 },
-                  { domain: 'repl.it', visits: 17 },
-                  { domain: 'haveibeenpwned.com', visits: 20 },
-                  { domain: 'redux.js.org', visits: 21 },
-                  { domain: 'v4-alpha.getbootstrap.com', visits: 20 },
-                  { domain: 'getbootstrap.com', visits: 13 },
-                  { domain: 'npmjs.com', visits: 11 }],
-        count: 122,
-      }]
+     // let data = [{
+     //  date: '20161018',
+     //  domains: [{ domain: 'learn.makerpass.com', visits: 103 },
+     //              { domain: 'repl.it', visits: 100 },
+     //              { domain: 'allData', visits: 211 }],
+     //  },
+     //  { date: '20161019',
+     //    domains: [{ domain: 'learn.makerpass.com', visits: 78 },
+     //              { domain: 'repl.it', visits: 57 },
+     //              { domain: 'allData', visits: 200 }],
+     //  },
+     //  { date: '20161020',
+     //    domains: [{ domain: 'learn.makerpass.com', visits: 35 },
+     //              { domain: 'repl.it', visits: 100 },
+     //              { domain: 'allData', visits: 150 }],
+     //  },
+     //  { date: '20161021',
+     //    domains: [{ domain: 'learn.makerpass.com', visits: 250 },
+     //              { domain: 'repl.it', visits: 50 },
+     //              { domain: 'allData', visits: 99 }],
+     //  },
+     //  { date: '20161022',
+     //    domains: [{ domain: 'learn.makerpass.com', visits: 45 },
+     //              { domain: 'repl.it', visits: 55 },
+     //             { domain: 'allData', visits: 106 }],
+     //  },
+     //  { date: '20161023',
+     //    domains: [{ domain: 'learn.makerpass.com', visits: 200 },
+     //              { domain: 'repl.it', visits: 90 },
+     //              { domain: 'allData', visits: 200 }],
+     //  },
+     //  { date: '20161024',
+     //    domains: [{ domain: 'learn.makerpass.com', visits: 20 },
+     //              { domain: 'repl.it', visits: 17 },
+     //              { domain: 'haveibeenpwned.com', visits: 20 },
+     //              { domain: 'redux.js.org', visits: 21 },
+     //              { domain: 'v4-alpha.getbootstrap.com', visits: 20 },
+     //              { domain: 'getbootstrap.com', visits: 13 },
+     //              { domain: 'npmjs.com', visits: 11 }],
+     //    count: 122,
+     //  }]
 
 
     // console.log('chart data', data);
@@ -196,9 +200,6 @@ export default class Graph extends React.Component {
       createDomainPath(data[0].domains[1].domain, '#6EBCD4');
       createDomainPath(data[0].domains[2].domain, '#89D46E');
     }
-
-
-
   }
 
   render() {

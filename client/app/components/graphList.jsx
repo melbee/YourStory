@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import Graph from './graph';
 import DomainList from './domainList';
 
-
 @connect((store) => { 
   return {
     weekData: store.weekData,
@@ -28,6 +27,7 @@ export default class GraphList extends React.Component {
   }
 
   natashaData() {
+    console.log("weekData:", this.props.weekData);
     console.log("checking state inside natashaData: ", this.state);
     console.log("weekData inside natashaData: ", this.props.weekData);
     const data = [];
@@ -87,6 +87,7 @@ export default class GraphList extends React.Component {
     });
 
     updateState.then(() => {
+      console.log("updating state")
       this.natashaData();
     });
   }
