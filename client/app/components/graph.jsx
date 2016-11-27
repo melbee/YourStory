@@ -19,7 +19,7 @@ export default class Graph extends React.Component {
   componentDidMount() {
     let data = this.props.graphOptions;
 
-   console.log("GRAPH DATA", this.props.graphOptions)
+   // console.log("GRAPH DATA", this.props.graphOptions)
 
     // let data = [{
     // date: '20161018',

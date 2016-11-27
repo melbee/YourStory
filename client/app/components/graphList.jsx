@@ -10,14 +10,14 @@ import fetchGraphOptions from '../actions/fetchGraphOptions';
   console.log("store inside graphlist: ", store);
   return {
     weekData: store.weekData,
-    // selectedGraphOptions: store.selectedGraphOptions,
+    selectedGraphOptions: store.graphOptions,
   };
 })
 
 export default class GraphList extends React.Component {
   constructor(props) {
     super(props);
-    console.log("tprops from graphList.jsx:", this.props);
+    console.log("props from graphList.jsx:", this.props);
     
     this.state = {
       selectValue: 'select a domain from graph',
