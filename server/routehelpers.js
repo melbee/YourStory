@@ -234,17 +234,17 @@ module.exports = {
   },
 
   getUser: (req, res) => {
-    console.log("GETUSER BODY", req.body.chromeID);
-    console.log("GETUSER SESSION", req.session.chromeID);
     const id = req.session.chromeID;
-
+    
     User.findOne({ where: { chrome_id: id } })
     .then((user) => {
-      console.log("user from getUser", user);
+      console.log("user from getUser", user.dataValues.username);
       if (user === null) {
         user = 'User';
-      }
-      res.status(201).json(user);
+        res.status(201).json(user.dataValues.username);
+      } else {
+        res.status(201).json(user.dataValues.username);
+      }      
     })
     .catch((err) => {
       console.log("error sending username", err);

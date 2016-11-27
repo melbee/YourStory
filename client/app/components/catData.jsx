@@ -11,55 +11,48 @@ import * as d3 from 'd3';
 
 export default class Categories extends React.Component {
   componentDidMount() {
-
-    // console.log('CAT DATA', this.props.catData);
-
     const catParser = {
-        "uncategorized": 'Others',
-        "searchenginesandportals": 'Search Engines',
-        "newsandmedia": 'News',
-        "streamingmedia": 'Streaming Media',
-        "entertainment": 'Entertainment',
-        "shopping": 'Shopping',
-        "vehicles": 'Vehicles',
-        "gambling": 'Gambling',
-        "informationtech": 'Technology',
-        "games": 'Games',
-        "sports": 'Sports',
-        "economyandfinance": 'Economy & Finance',
-        "jobrelated": 'Jobs & Career',
-        "hacking": 'Hacking',
-        "messageboardsandforums": 'Forums',
-        "socialnetworking": 'Social Media',
-        "chatandmessaging": 'Chat & Instant Messaging',
-        "mediasharing": 'Media Sharing',
-        "blogsandpersonal": 'Blogs',
-        "health": 'Health',
-        "adult": 'Adult Content',
-        "personals": 'Dating',
-        "religion": 'Religion',
-        "travel": 'Travel',
-        "abortion": 'Abortion',
-        "education": 'Education',
-        "drugs": 'Drugs',
-        "alcoholandtobacco": 'Alcohol & Tobbaco',
-        "business": 'Business',
-        "advertising": 'Advertising',
-        "humor": 'Humor',
-        "foodandrecipes": 'Food & Recipes',
-        "realestate": 'Real State',
-        "weapons": 'Weapons',
-        "proxyandfilteravoidance": 'Proxy & Filter Avoidance',
-        "virtualreality": 'Virtual Reality',
-        "translators": 'Translators',
-        "parked": 'Parked Sites',
-        "illegalcontent": 'Illegal Content',
-        "contentserver": 'Content Servers'
+      uncategorized: 'Other',
+      searchenginesandportals: 'Search Engines',
+      newsandmedia: 'News',
+      streamingmedia: 'Streaming Media',
+      entertainment: 'Entertainment',
+      shopping: 'Shopping',
+      vehicles: 'Vehicles',
+      gambling: 'Gambling',
+      informationtech: 'Technology',
+      games: 'Games',
+      sports: 'Sports',
+      economyandfinance: 'Economy & Finance',
+      jobrelated: 'Jobs & Career',
+      hacking: 'Hacking',
+      messageboardsandforums: 'Forums',
+      socialnetworking: 'Social Media',
+      chatandmessaging: 'Chat & Instant Messaging',
+      mediasharing: 'Media Sharing',
+      blogsandpersonal: 'Blogs',
+      health: 'Health',
+      adult: 'Adult Content',
+      personals: 'Dating',
+      religion: 'Religion',
+      travel: 'Travel',
+      abortion: 'Abortion',
+      education: 'Education',
+      drugs: 'Drugs',
+      alcoholandtobacco: 'Alcohol & Tobbaco',
+      business: 'Business',
+      advertising: 'Advertising',
+      humor: 'Humor',
+      foodandrecipes: 'Food & Recipes',
+      realestate: 'Real State',
+      weapons: 'Weapons',
+      proxyandfilteravoidance: 'Proxy & Filter Avoidance',
+      virtualreality: 'Virtual Reality',
+      translators: 'Translators',
+      parked: 'Parked Sites',
+      illegalcontent: 'Illegal Content',
+      contentserver: 'Content Servers',
     };
-
-    // console.log('cat data from catData.jsx', this.props.catData);
-
-    // console.log('cat data from catData.jsx', this.props.catData);
 
     const datasetCreator = ((data) => {
       return data.map((item) => {
@@ -67,15 +60,12 @@ export default class Categories extends React.Component {
       });
     });
 
-    let dataset = datasetCreator(this.props.catData);
-
+    const dataset = datasetCreator(this.props.catData);
     const width = 360;
     const height = 360;
     const radius = Math.min(width, height) / 2;
     const donutWidth = 55;
-    const legendRectSize = 18;
-    const legendSpacing = 4;
-    const colorArray =[
+    const colorArray = [
       'rgb(84, 135, 182)',
       'rgb(98, 140, 184)',
       // 'rgb(113, 144, 185)',
@@ -88,9 +78,8 @@ export default class Categories extends React.Component {
       // 'rgb(212, 178, 198)',
       'rgb(227, 182, 199)',
       'rgb(241, 187, 201)',
-      'rgb(255, 192, 203)']
-    const color = d3.scaleOrdinal(colorArray);
-                                                       
+      'rgb(255, 192, 203)'];
+    const color = d3.scaleOrdinal(colorArray);                                           
     const svg = d3.select('#chart')
       .append('svg')
       .attr('width', width)
@@ -145,15 +134,10 @@ export default class Categories extends React.Component {
           return d.count;
         }));
         const percent = Math.round(1000 * d.data.count / total) / 10;
-        // tooltipD3.select('.label').html(d.data.label);
-        // tooltipD3.select('.count').html(d.data.count);
-        // tooltipD3.select('.percent').html(percent + '%');
-        // tooltipD3.style('display', 'block');
         svg.select('.domain').text(d.data.label + ': ' + percent + '%');
       }));
 
-      path.on('mouseout', (() => {
-        // tooltip.style('display', 'none');
+      path.on('mouseout', (() => {                              
         svg.selectAll('text').text("");
       }));
 
@@ -185,24 +169,22 @@ export default class Categories extends React.Component {
             return color(d.data.label);
           })).transition()
           .duration(2000)
-          .attrTween('d', function(d) {
-            var interpolate = d3.interpolate({ startAngle: 0, endAngle: 0 }, d);
+          .attrTween('d', ((d) => {
+            const interpolate = d3.interpolate({ startAngle: 0, endAngle: 0 }, d);
             return function(t) {
               return arc(interpolate(t));
             };
-          });
+          }));
 
         temp.exit()
           .remove();
       });
-
-
         let newLabel = svg.append('text')
           .attr('text-anchor', 'middle')
           .attr('class', 'domain')
           .text("")
         newLabel.on('click', (() => {
-          console.log('clicked')
+          console.log('clicked');
         }));
   }
 
