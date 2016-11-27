@@ -12,6 +12,7 @@ function loadVisDataUponResponse (data) {
 export default function fetchVisData (id) {
   // console.log('fetch vis data', id);
   return function (dispatch) {
+    // console.log("dispatch from fetchVisData", dispatch);
     const tenMinutes = 1000 * 60 * 60 * 72;
     const tenMinutesAgo = (new Date).getTime() - tenMinutes;
 
