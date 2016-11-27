@@ -18,7 +18,6 @@ import Header from './header.jsx';
 export default class App extends React.Component {
 
   componentWillMount() {
-    console.log("HELLOOOOOO");
     getToken();
   }
 
