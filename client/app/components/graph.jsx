@@ -107,7 +107,7 @@ export default class Graph extends React.Component {
     margin = { top: 20, right: 80, bottom: 20, left: 50 },
     width = svg.attr("width") - margin.left - margin.right,
     height = svg.attr("height") - margin.top - margin.bottom,
-    g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    g = svg.append("g").attr("transform", "translate(" + 0 + "," + margin.top + ")");
 
 
     //======= CREATE X AND Y SCALES ======
@@ -202,7 +202,7 @@ export default class Graph extends React.Component {
           <div>date from new week data passed as props: {dayItem.date}</div>
         )}
 
-        <svg width="960" height="200"></svg>
+        <svg width="960" height="200" className="graph-svg"></svg>
       </div>
 
     );
