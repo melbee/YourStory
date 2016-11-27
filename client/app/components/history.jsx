@@ -96,9 +96,7 @@ export default class History extends React.Component {
       })
       .attr('fill', (d, i) => {
         return (color(i + 1));
-      })
-
-
+      });
   }
 
   render(data) {
