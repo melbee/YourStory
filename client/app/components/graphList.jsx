@@ -3,8 +3,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Graph from './graph';
 import DomainList from './domainList';
+import store from '../store';
+import fetchGraphOptions from '../actions/fetchGraphOptions';
 
 @connect((store) => { 
+  console.log("store inside graphlist: ", store);
   return {
     weekData: store.weekData,
     // selectedGraphOptions: store.selectedGraphOptions,
@@ -29,7 +32,7 @@ export default class GraphList extends React.Component {
   natashaData() {
     console.log("weekData:", this.props.weekData);
     console.log("checking state inside natashaData: ", this.state);
-    console.log("weekData inside natashaData: ", this.props.weekData);
+    console.log("weekData inside graphlist: ", this.props.weekData);
     const data = [];
     this.props.weekData.map((dayObj) => {
       const newDayObj = {};
@@ -50,7 +53,8 @@ export default class GraphList extends React.Component {
     this.setState({
       natashaData: data,
     }, () => {
-      console.log("new data obj for Natasha: ", this.state.natashaData);
+      store.dispatch(fetchGraphOptions(this.state.natashaData));
+      // console.log("new data obj for Natasha: ", this.props);
     });
   }
 
