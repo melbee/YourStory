@@ -14,8 +14,6 @@ export default class ListView extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
-
     this.options = {
       clearSearch: true,
     };
@@ -23,12 +21,23 @@ export default class ListView extends React.Component {
 
   render() {
     return (
-      <div>
-        <BootstrapTable data={this.props.visData} exportCSV search={ true } options={this.options} striped hover>
-          <TableHeaderColumn isKey dataField="domain" dataSort> Domains </TableHeaderColumn>
-          <TableHeaderColumn dataSort> Category </TableHeaderColumn>
-          <TableHeaderColumn dataField="visits" dataSort> Visits</TableHeaderColumn>
-        </BootstrapTable>
+       <div>
+        <div className="row">
+          <div className="col-sm-12">
+            <div className="row">
+              <div className="col-sm-1"></div>
+              <div className="col-sm-10">
+                <BootstrapTable data={this.props.visData} exportCSV search={ true } options={this.options} striped hover pagination>
+                  <TableHeaderColumn isKey dataField="domain" dataSort> Domains </TableHeaderColumn>
+                  <TableHeaderColumn dataField="visits" dataSort> Visits</TableHeaderColumn>
+                </BootstrapTable>
+              </div>
+              <div className="col-sm-1"></div>
+            </div>
+          </div>
+        </div>
+        <br />
+        <br />
       </div>
     );
   }

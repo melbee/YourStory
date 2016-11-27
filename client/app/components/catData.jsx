@@ -12,7 +12,7 @@ import * as d3 from 'd3';
 export default class Categories extends React.Component {
   componentDidMount() {
     const catParser = {
-      uncategorized: 'Others',
+      uncategorized: 'Other',
       searchenginesandportals: 'Search Engines',
       newsandmedia: 'News',
       streamingmedia: 'Streaming Media',
