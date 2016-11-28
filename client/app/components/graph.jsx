@@ -18,6 +18,7 @@ export default class Graph extends React.Component {
 
   componentDidMount() {
     let data = this.props.graphOptions;
+    console.log("data from graph------: ", data);
 
    // console.log("GRAPH DATA", this.props.graphOptions)
 
@@ -145,7 +146,7 @@ export default class Graph extends React.Component {
       for (const day of data) {
         for (const domain of day.domains) {
           if (domain.domain === inputDomain) {
-            domainData.push({ count: domain.visits, date: new Date(day.date.slice(0, 4), day.date.slice(4, 6), day.date.slice(6)) });
+            domainData.push({ count: domain.visits, date: new Date(day.date.slice(0, 4), day.date.slice(4, 6), day.date.slice(6)), domain:domain.domain });
           }
         }
       }
