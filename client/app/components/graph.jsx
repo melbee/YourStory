@@ -162,13 +162,42 @@ export default class Graph extends React.Component {
 
     //APPEND ALL DOMAINS LINE TO GRAPH
     //+++ add css class to distinguish each line +++
-    const generateSVG = (domain, color) => {
-      return svg.append("path")
+    const generateSVG = (domain, color) => {     
+      const tooltip = d3.select('#graph')
+        .append("div")
+        .style("position", "absolute")
+        .style("z-index", "100")
+      
+      svg.append("path")
        .attr("d", generateLine()(domain))
+       .attr('class', 'graph-path')
        .attr("stroke", color)
        .attr("stroke-width", 2)
-       .attr("fill", "none");
-    }
+       .attr("fill", "none");              
+    
+     svg.selectAll('.graph-path')
+       .data(domain)
+       .on('mouseover', ((d) => {
+        console.log('domain', d.domain)
+        tooltip.html(
+          '<strong>' +
+          d.domain +
+          '</strong>'
+        )
+        tooltip.style("visibility", "visible")
+        .style("textAlign", "center")
+        .style("top", '80px')
+        .style("left", '100px')
+        return tooltip;
+  
+       }))
+       .on('mouseout', () => {
+         return tooltip.style("visibility", "hidden")
+       });
+
+      
+      return svg;
+    };
 
 
     const createDomainPath = (domain, color) => {
@@ -198,10 +227,6 @@ export default class Graph extends React.Component {
   render() {
     return (
       <div id="graph">
-        {this.props.data.map((dayItem) =>
-          <div>date from new week data passed as props: {dayItem.date}</div>
-        )}
-
         <svg width="960" height="200" className="graph-svg"></svg>
       </div>
 
@@ -210,4 +235,6 @@ export default class Graph extends React.Component {
 
 }
 
- // <div ref={'hello'} style={{ margin: 'auto' }} />
+        // {this.props.data.map((dayItem) =>
+        //   <div>date from new week data passed as props: {dayItem.date}</div>
+        // )}

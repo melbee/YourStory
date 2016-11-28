@@ -34,6 +34,7 @@ export default class GraphList extends React.Component {
     console.log("weekData inside graphlist: ", this.props.weekData);
     const data = [];
     this.props.weekData.map((dayObj) => {      
+      //CREATE AND ADD ALL DATA OBJECT
       const newDayObj = {};
 
       newDayObj.date = dayObj.date;
@@ -45,9 +46,43 @@ export default class GraphList extends React.Component {
       domainObj.visits = dayObj.count;
 
       newDayObj.domains.push(domainObj);
-
       data.push(newDayObj);
+
+      //CREATE AND ADD OPTION #1 OBJECT IF SELECTED
+      if (this.state.firstOption !== null) {
+        console.log("firstOption day object:", dayObj);
+        console.log("this.state.firstOption", this.state.firstOption);
+        
+
+        dayObj.domains.map((optionDomainObject) => {
+          const dom = this.state.firstOption;
+          console.log("optionDomainObject.dom: ", optionDomainObject[dom]);
+          // if (optionDomainObject.dom !== undefined) {
+          //   console.log("optionDomainObject.dom: ", optionDomainObject.do)
+          // }
+        });
+  
+        // if(dayObj.domains.includes(this.state.firstOption)) {
+        //   console.log("includes domain: ", dayObj);
+        // }
+
+        // const firstSelectedOption = {};
+        // firstSelectedOption.domain = 'this.state.firstOption';
+        // firstSelectedOption.visits = dayObj.count;
+      }
+
+      //CREATE AND ADD OPTION #2 OBJECT IF SELECTED
+      if (this.state.secondOption !== null) {
+        console.log("secondOption:", this.state.secondOption);
+      }
+
+      //CREATE AND ADD OPTION #3 OBJECT IF SELECTED
+      if (this.state.thirdOption !== null) {
+        console.log("thirdOption:", this.state.thirdOption);
+      }
     });
+
+
 
     console.log("dayObj: ", data);
     
