@@ -34,6 +34,8 @@ export default class GraphList extends React.Component {
     console.log("weekData inside graphlist: ", this.props.weekData);
     const data = [];
     this.props.weekData.map((dayObj) => {      
+      console.log("dayObj:%%%%%", dayObj);
+      //CREATE AND ADD ALL DATA OBJECT
       const newDayObj = {};
 
       newDayObj.date = dayObj.date;
@@ -45,9 +47,48 @@ export default class GraphList extends React.Component {
       domainObj.visits = dayObj.count;
 
       newDayObj.domains.push(domainObj);
-
       data.push(newDayObj);
+
+      // CREATE AND ADD OPTION #1 OBJECT IF SELECTED
+      if (this.state.firstOption !== null) {
+        dayObj.domains.map((optionDomainObject, index) => {
+          const dom = this.state.firstOption;
+          // console.log("optionDomainObject.dom: ", optionDomainObject, dom);
+          if (optionDomainObject.domain === dom) {
+            console.log("got it ***", optionDomainObject, index);
+            console.log("dayObj.domains[index]", dayObj.domains[index]);
+            newDayObj.domains.push(optionDomainObject);
+          }
+        });
+      }
+
+      // //CREATE AND ADD OPTION #2 OBJECT IF SELECTED
+      if (this.state.secondOption !== null) {
+        dayObj.domains.map((optionDomainObject, index) => {
+          const dom = this.state.secondOption;
+          // console.log("optionDomainObject.dom: ", optionDomainObject, dom);
+          if (optionDomainObject.domain === dom) {
+            console.log("got it ***", optionDomainObject, index);
+            console.log("dayObj.domains[index]", dayObj.domains[index]);
+            newDayObj.domains.push(optionDomainObject);
+          }
+        });
+      }
+      // //CREATE AND ADD OPTION #3 OBJECT IF SELECTED
+      if (this.state.thirdOption !== null) {
+        dayObj.domains.map((optionDomainObject, index) => {
+          const dom = this.state.thirdOption;
+          // console.log("optionDomainObject.dom: ", optionDomainObject, dom);
+          if (optionDomainObject.domain === dom) {
+            console.log("got it ***", optionDomainObject, index);
+            console.log("dayObj.domains[index]", dayObj.domains[index]);
+            newDayObj.domains.push(optionDomainObject);
+          }
+        });
+      }     
     });
+    
+
 
     console.log("dayObj: ", data);
     
