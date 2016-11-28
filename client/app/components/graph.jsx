@@ -12,74 +12,74 @@ import * as d3 from 'd3';
 })
 
 export default class Graph extends React.Component {
-  componentDidMount() {    
-    console.log('this.props.data: ', this.props.data);
-    let data = this.props.weekData;
+  // componentDidMount() {    
+  //   console.log('this.props.data: ', this.props.data);
+  //   let data = this.props.weekData;
 
-        //======== ALL DOMAINS =========
-    const startDate = {
-      'year': Number(data[0].date.slice(0, 4)),
-      'month': Number(data[0].date.slice(4, 6)),
-      'date': Number(data[0].date.slice(6))
-    }
+  //       //======== ALL DOMAINS =========
+  //   const startDate = {
+  //     'year': Number(data[0].date.slice(0, 4)),
+  //     'month': Number(data[0].date.slice(4, 6)),
+  //     'date': Number(data[0].date.slice(6))
+  //   }
 
-    const endDate = {
-      'year': Number(data[data.length - 1].date.slice(0, 4)),
-      'month': Number(data[data.length - 1].date.slice(4, 6)),
-      'date': Number(data[data.length - 1].date.slice(6))
-    }
-    //======= CREATE SVG ELEMENT =======
-    const svg = d3.select("svg"),
-    margin = { top: 20, right: 80, bottom: 20, left: 50 },
-    width = svg.attr("width") - margin.left - margin.right,
-    height = svg.attr("height") - margin.top - margin.bottom,
-    g = svg.append("g").attr("transform", "translate(" + 0 + "," + margin.top + ")");
+  //   const endDate = {
+  //     'year': Number(data[data.length - 1].date.slice(0, 4)),
+  //     'month': Number(data[data.length - 1].date.slice(4, 6)),
+  //     'date': Number(data[data.length - 1].date.slice(6))
+  //   }
+  //   //======= CREATE SVG ELEMENT =======
+  //   const svg = d3.select("svg"),
+  //   margin = { top: 20, right: 80, bottom: 20, left: 50 },
+  //   width = svg.attr("width") - margin.left - margin.right,
+  //   height = svg.attr("height") - margin.top - margin.bottom,
+  //   g = svg.append("g").attr("transform", "translate(" + 0 + "," + margin.top + ")");
 
-   let totalDomainCount = [];
-    let dates = [];
-    for (const day of data) {
-      dates.push(new Date(day.date.slice(0, 4), day.date.slice(4, 6), day.date.slice(6)));
-      // for (const domain of day.domains) {
-        totalDomainCount.push(day.count);
-      // }
-    }
-
-
-    //MAX AND MIN VALUES FOR Y AXIS
-    const max = Math.max(...totalDomainCount);
-    const min = Math.min(...totalDomainCount);
+  //  let totalDomainCount = [];
+  //   let dates = [];
+  //   for (const day of data) {
+  //     dates.push(new Date(day.date.slice(0, 4), day.date.slice(4, 6), day.date.slice(6)));
+  //     // for (const domain of day.domains) {
+  //       totalDomainCount.push(day.count);
+  //     // }
+  //   }
 
 
-    //======= CREATE X AND Y SCALES ======
-    //12 pm appearing on ticks between days
-    const x = d3.scaleTime().domain([new Date(startDate.year, startDate.month, startDate.date), new Date(endDate.year, endDate.month, endDate.date)]).range([0, width])
-    const y = d3.scaleLinear().domain([min, max]).range([height, 0])
+  //   //MAX AND MIN VALUES FOR Y AXIS
+  //   const max = Math.max(...totalDomainCount);
+  //   const min = Math.min(...totalDomainCount);
 
 
-    //DRAW X AND Y AXIS
-    g.append("g")
-        .attr("class", "axis axis--x")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x))
-      .append('text')
-        .attr("x", 40)
-        .attr("y", 30)
-        .attr("dx", "0.71em")
-        .attr("fill", "#000")
-        .text("Days");
+  //   //======= CREATE X AND Y SCALES ======
+  //   //12 pm appearing on ticks between days
+  //   const x = d3.scaleTime().domain([new Date(startDate.year, startDate.month, startDate.date), new Date(endDate.year, endDate.month, endDate.date)]).range([0, width])
+  //   const y = d3.scaleLinear().domain([min, max]).range([height, 0])
 
-    g.append("g")
-        .attr("class", "axis axis--y")
-        .call(d3.axisLeft(y))
-      .append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 6)
-        .attr("dy", "0.71em")
-        .attr("fill", "#000")
-        .text("Visit Count");
-  }
 
-  componentDidUpdate() {
+  //   //DRAW X AND Y AXIS
+  //   g.append("g")
+  //       .attr("class", "axis axis--x")
+  //       .attr("transform", "translate(0," + height + ")")
+  //       .call(d3.axisBottom(x))
+  //     .append('text')
+  //       .attr("x", 40)
+  //       .attr("y", 30)
+  //       .attr("dx", "0.71em")
+  //       .attr("fill", "#000")
+  //       .text("Days");
+
+  //   g.append("g")
+  //       .attr("class", "axis axis--y")
+  //       .call(d3.axisLeft(y))
+  //     .append("text")
+  //       .attr("transform", "rotate(-90)")
+  //       .attr("y", 6)
+  //       .attr("dy", "0.71em")
+  //       .attr("fill", "#000")
+  //       .text("Visit Count");
+  // }
+
+  componentDidMount() {
     let data = this.props.graphOptions;
     // console.log("data from graph------: ", data);
 
