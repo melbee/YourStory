@@ -150,7 +150,7 @@ export default class GraphList extends React.Component {
       });
     });
 
-    let graphData = [uniqueDomains, uniqueDomains, uniqueDomains];
+    let graphData = [uniqueDomains, uniqueDomains];
 
     return (
       <div>

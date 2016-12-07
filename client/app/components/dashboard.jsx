@@ -26,22 +26,8 @@ export default class Dashboard extends React.Component {
   render(){
     return(
       <div>
-        <div className="row">
-          <div className="col-sm-12">
-            <div className="row">
-              <div className="col-sm-1"></div>
-              <div className="col-sm-10">
-                <h5>Sites Visited This Week</h5>
-                <GraphList />
-              </div>
-              <div className="col-sm-1"></div>
-            </div>
-          </div>
-        </div>
-        <br />
-        <br />
 
-        <div className="row">
+<div className="row">
           <div className="col-sm-1"></div>
           <div className="col-sm-5">
             <div className="row">
@@ -67,7 +53,21 @@ export default class Dashboard extends React.Component {
             </div>
           </div>
           <div className="col-sm-1"></div>
+        </div>      
+        <div className="row">
+          <div className="col-sm-12">
+            <div className="row">
+              <div className="col-sm-1"></div>
+              <div className="col-sm-10">
+                <h5>Sites Visited This Week</h5>
+                <GraphList />
+              </div>
+              <div className="col-sm-1"></div>
+            </div>
+          </div>
         </div>
+        <br />
+        <br />
       </div>
     );
   }
