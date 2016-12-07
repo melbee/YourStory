@@ -24,7 +24,10 @@ describe('YourStory App', function () {
   describe('GET /api/catData', function () {
     it('returns status 201', function (done) {
       request.get(base_url + '/api/catData', function (error, response, body) {
-        expect(response.statusCode).toBe(201);
+        if(error) {
+          console.log("this is the error", error);
+        }
+        expect(response.statusCode).toBe(201);        
         done();
       });
     });
